@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { AntDesign, Ionicons, Entypo } from "@expo/vector-icons";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { Ionicons, Entypo } from "@expo/vector-icons";
+import { StyleSheet, View, Image } from "react-native";
 
 export default function ImageDetailScreen(props) {
   return (

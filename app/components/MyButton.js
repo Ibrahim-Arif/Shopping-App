@@ -1,11 +1,14 @@
 import { TouchableOpacity, StyleSheet, Text } from "react-native";
-import React, { Children } from "react";
+import React from "react";
 
 import colors from "../config/colors";
 
-function MyButton({ title, onPress }) {
+function MyButton({ title, onPress, style, color = colors.primary }) {
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
+    <TouchableOpacity
+      style={[style, { backgroundColor: color }, styles.container]}
+      onPress={onPress}
+    >
       <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
   );
@@ -13,7 +16,6 @@ function MyButton({ title, onPress }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.primary,
     borderRadius: 25,
     justifyContent: "center",
     alignItems: "center",

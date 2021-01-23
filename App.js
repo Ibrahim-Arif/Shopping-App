@@ -12,6 +12,8 @@ import {
 import WelcomeScreen from "./app/screens/WelcomeScreen";
 import ImageDetailScreen from "./app/screens/ImageDetailScreen";
 import MyButton from "./app/components/MyButton";
+import Card from "./app/components/card";
+import colors from "./app/config/colors";
 
 export default function App() {
   return (
@@ -19,7 +21,18 @@ export default function App() {
       <StatusBar style="auto" />
       {/* <ImageDetailScreen /> */}
       <WelcomeScreen />
-      {/* <MyButton title="ibrahim"/> */}
+      {/* <MyButton title="ibrahim" /> */}
+
+      {/* <Card
+        img={require("./app/assets/couch.jpg")}
+        description="Comfortable couce with pillows!"
+        price="600"
+      />
+      <Card
+        img={require("./app/assets/jacket.jpg")}
+        description="Red jacket for sale"
+        price="250"
+      /> */}
     </View>
   );
 }
@@ -27,8 +40,9 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    color: "#fff",
+    // backgroundColor: colors.lightgrey,
+    // padding: 20,
+    // paddingTop: 40,
     // justifyContent: "center",
     // alignSelf: "center",
   },
