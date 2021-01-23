@@ -5,4 +5,5 @@ export default {
   black: "#000",
   dodgerblue: "dodgerblue",
   lightgrey: "#E7E9E9",
+  darkgrey: "#918C8C",
 };

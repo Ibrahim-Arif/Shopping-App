@@ -37,13 +37,21 @@ function WelcomeScreen(props) {
         <MyButton
           title="register"
           color={colors.dodgerblue}
-          style={{ borderTopLeftRadius: 50, borderTopRightRadius: 50 }}
+          style={{
+            borderTopLeftRadius: 50,
+            borderTopRightRadius: 50,
+            borderRadius: 15,
+          }}
           onPress={() => Alert.alert("Alert!", "Register tapped!")}
         />
         <MyButton
           title="sign-in"
           color={colors.primary}
-          style={{ borderBottomLeftRadius: 50, borderBottomRightRadius: 50 }}
+          style={{
+            borderBottomLeftRadius: 50,
+            borderBottomRightRadius: 50,
+            borderRadius: 5,
+          }}
           onPress={() => Alert.alert("Alert!", "Sign-In tapped!")}
         />
       </View>
@@ -83,7 +91,7 @@ const styles = StyleSheet.create({
 
   text: {
     fontSize: 20,
-    fontFamily: "sans-serif-thin",
+    fontFamily: "sans-serif",
     fontWeight: "bold",
     color: colors.primary,
     textTransform: "capitalize",

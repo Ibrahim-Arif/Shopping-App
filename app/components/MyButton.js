@@ -6,7 +6,7 @@ import colors from "../config/colors";
 function MyButton({ title, onPress, style, color = colors.primary }) {
   return (
     <TouchableOpacity
-      style={[style, { backgroundColor: color }, styles.container]}
+      style={[styles.container, { backgroundColor: color }, style]}
       onPress={onPress}
     >
       <Text style={styles.text}>{title}</Text>

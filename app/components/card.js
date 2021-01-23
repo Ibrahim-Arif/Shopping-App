@@ -19,13 +19,12 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderRadius: 20,
     marginBottom: 15,
+    overflow: "hidden",
   },
   image: {
     width: "100%",
     height: 250,
     marginBottom: 5,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
   },
   text: {
     fontSize: 20,

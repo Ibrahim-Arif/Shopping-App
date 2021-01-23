@@ -14,6 +14,7 @@ import ImageDetailScreen from "./app/screens/ImageDetailScreen";
 import MyButton from "./app/components/MyButton";
 import Card from "./app/components/card";
 import colors from "./app/config/colors";
+import ListingDetailScreen from "./app/screens/ListingDetailScreen";
 
 export default function App() {
   return (
@@ -33,6 +34,8 @@ export default function App() {
         description="Red jacket for sale"
         price="250"
       /> */}
+
+      {/* <ListingDetailScreen /> */}
     </View>
   );
 }
