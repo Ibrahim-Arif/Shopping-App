@@ -1,15 +1,9 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  ImageBackground,
-  TouchableOpacity,
-} from "react-native";
+import { AntDesign, Ionicons, Entypo } from "@expo/vector-icons";
+import { StyleSheet, Text, View, Image } from "react-native";
 
-export default function App() {
+export default function ImageDetailScreen(props) {
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
@@ -17,22 +11,23 @@ export default function App() {
         style={{
           flexDirection: "row",
           justifyContent: "space-between",
-          padding: 15,
+          padding: 10,
+          paddingBottom: 0,
         }}
       >
         <View style={styles.buttonView}>
-          <Text style={{ fontSize: 30 }}>{"<--"}</Text>
+          <Ionicons name="arrow-back-sharp" size={24} color="white" />
         </View>
 
         <View style={styles.buttonView}>
-          <Text style={{ fontSize: 30 }}>{"-->"}</Text>
+          <Entypo name="forward" size={24} color="white" />
         </View>
       </View>
 
       <View style={styles.imageView}>
         <Image
           style={styles.image}
-          source={require("./assets/welcomeImage.png")}
+          source={require("../assets/welcomeImage.png")}
         />
       </View>
     </View>
@@ -55,11 +50,10 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   buttonView: {
-    backgroundColor: "gold",
     width: 50,
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    top: 40,
+    top: 20,
   },
 });
