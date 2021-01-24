@@ -17,9 +17,12 @@ function WelcomeScreen(props) {
     <ImageBackground
       blurRadius={2}
       style={styles.container}
-      source={require("../assets/TekBilgin.png")}
+      source={require("../assets/background1.jpg")}
     >
-      <Text style={[styles.text, styles.topText]}>{"Welcome to \nDawn"}</Text>
+      <Text style={[styles.topText, { fontSize: 28 }]}>
+        {"Welcome to \n"}
+        <Text style={[styles.topText, { fontSize: 48 }]}>{"Dawn"}</Text>
+      </Text>
 
       <TouchableOpacity style={styles.logoContainer}>
         <Image
@@ -46,7 +49,7 @@ function WelcomeScreen(props) {
         />
         <MyButton
           title="sign-in"
-          color={colors.primary}
+          color={colors.secondary}
           style={{
             borderBottomLeftRadius: 50,
             borderBottomRightRadius: 50,
@@ -59,8 +62,6 @@ function WelcomeScreen(props) {
   );
 }
 
-export default WelcomeScreen;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -70,21 +71,19 @@ const styles = StyleSheet.create({
   logoContainer: {
     alignSelf: "center",
     position: "absolute",
-    top: "25%",
+    top: "36%",
   },
 
   logo: {
     alignSelf: "center",
-    borderWidth: 6,
-    borderColor: colors.white,
-    borderRadius: 55,
-    height: 110,
-    width: 110,
+    height: 100,
+    width: 100,
   },
 
   signButtonView: {
-    height: "18%",
+    height: "20%",
     width: "90%",
+    bottom: 20,
     justifyContent: "space-evenly",
     alignSelf: "center",
   },
@@ -93,14 +92,17 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: "sans-serif",
     fontWeight: "bold",
-    color: colors.primary,
     textTransform: "capitalize",
   },
 
   topText: {
-    fontSize: 34,
+    fontFamily: "sans-serif",
+    fontWeight: "bold",
+    color: colors.secondary,
     left: 10,
     position: "absolute",
-    top: "8%",
+    top: "14%",
   },
 });
+
+export default WelcomeScreen;

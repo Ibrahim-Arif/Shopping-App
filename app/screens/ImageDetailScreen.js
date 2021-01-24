@@ -1,35 +1,32 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { Ionicons, Entypo } from "@expo/vector-icons";
-import { StyleSheet, View, Image } from "react-native";
+import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
+import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
 
 export default function ImageDetailScreen(props) {
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          padding: 10,
-          paddingBottom: 0,
-        }}
-      >
-        <View style={styles.buttonView}>
-          <Ionicons name="arrow-back-sharp" size={24} color="white" />
-        </View>
 
-        <View style={styles.buttonView}>
-          <Entypo name="forward" size={24} color="white" />
-        </View>
+      <View style={styles.iconView}>
+        <TouchableOpacity style={styles.buttonView}>
+          <Ionicons name="arrow-back-sharp" size={30} color="white" />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.buttonView}>
+          <MaterialCommunityIcons
+            name="trash-can-outline"
+            size={30}
+            color="white"
+          />
+        </TouchableOpacity>
       </View>
 
-      <View style={styles.imageView}>
-        <Image
-          style={styles.image}
-          source={require("../assets/welcomeImage.png")}
-        />
-      </View>
+      <Image
+        style={styles.image}
+        source={require("../assets/jacket.jpg")}
+        resizeMode="contain"
+      />
     </View>
   );
 }
@@ -38,22 +35,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "black",
-    color: "#fff",
   },
-  imageView: {
-    width: "100%",
-    height: "75%",
-    top: 60,
+  iconView: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 10,
   },
   image: {
     width: "100%",
-    height: "100%",
+    height: "75%",
+    top: "10%",
   },
   buttonView: {
-    width: 50,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    top: 20,
+    top: "10%",
   },
 });

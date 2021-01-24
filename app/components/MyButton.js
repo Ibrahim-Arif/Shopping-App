@@ -3,13 +3,13 @@ import React from "react";
 
 import colors from "../config/colors";
 
-function MyButton({ title, onPress, style, color = colors.primary }) {
+function MyButton({ title, onPress, style, titleStyle, color = "#000" }) {
   return (
     <TouchableOpacity
       style={[styles.container, { backgroundColor: color }, style]}
       onPress={onPress}
     >
-      <Text style={styles.text}>{title}</Text>
+      <Text style={[styles.text, titleStyle]}>{title}</Text>
     </TouchableOpacity>
   );
 }

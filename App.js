@@ -22,7 +22,9 @@ export default function App() {
       <StatusBar style="auto" />
       {/* <ImageDetailScreen /> */}
       <WelcomeScreen />
-      {/* <MyButton title="ibrahim" /> */}
+      {/* <MyButton title="test button" color={colors.primary} /> */}
+
+      {/* <Text accessibilityLabel="hello">hello world</Text> */}
 
       {/* <Card
         img={require("./app/assets/couch.jpg")}
@@ -43,10 +45,12 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+
     // backgroundColor: colors.lightgrey,
     // padding: 20,
     // paddingTop: 40,
+
+    // alignItems: "center",
     // justifyContent: "center",
-    // alignSelf: "center",
   },
 });

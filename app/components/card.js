@@ -5,7 +5,11 @@ import colors from "../config/colors";
 function Card({ img, description, price }) {
   return (
     <TouchableOpacity style={styles.card}>
-      <Image style={styles.image} source={img} />
+      <Image
+        style={styles.image}
+        source={img}
+        defaultSource={require("../assets/background1.jpg")}
+      />
       <Text style={styles.text}>{description}</Text>
       <Text style={[styles.text, { color: colors.secondary }]}>
         {"$" + price}
