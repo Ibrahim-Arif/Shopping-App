@@ -6,4 +6,5 @@ export default {
   dodgerblue: "dodgerblue",
   lightgrey: "#E7E9E9",
   darkgrey: "#918C8C",
+  danger: "#ff5252",
 };

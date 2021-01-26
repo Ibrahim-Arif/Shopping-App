@@ -1,45 +1,65 @@
 import React from "react";
-import { StyleSheet, View, Image, Text } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Image,
+  Text,
+  TouchableHighlight,
+} from "react-native";
+import Swipeable from "react-native-gesture-handler/Swipeable";
 
 import colors from "../config/colors";
+import ListItemDeleteAction from "../components/ListItemDeleteAction";
 
-function ListItem({ image, itemName, totalListings, style = null }) {
+function ListItem({
+  title,
+  description,
+  image,
+  onPress,
+  renderRightActions,
+  style = null,
+}) {
   return (
-    <View style={[style, styles.userContainer]}>
-      <Image style={styles.userImage} source={image} />
+    <Swipeable renderRightActions={renderRightActions}>
+      <TouchableHighlight underlayColor={colors.lightgrey} onPress={onPress}>
+        <View style={[style, styles.container]}>
+          <Image style={styles.image} source={image} />
 
-      <View style={styles.userTextContainer}>
-        <Text style={[styles.text, { paddingVertical: 0 }]}>{itemName}</Text>
+          <View style={styles.containerText}>
+            <Text style={[styles.text]}>{title}</Text>
 
-        <Text
-          style={[styles.text, { paddingVertical: 0, color: colors.darkgrey }]}
-        >
-          {totalListings}
-        </Text>
-      </View>
-    </View>
+            <Text
+              style={[styles.text, { color: colors.darkgrey, fontSize: 16 }]}
+            >
+              {description}
+            </Text>
+          </View>
+        </View>
+      </TouchableHighlight>
+    </Swipeable>
   );
 }
 
 const styles = StyleSheet.create({
-  userContainer: {
+  container: {
     flexDirection: "row",
     marginLeft: 14,
+    paddingVertical: 5,
   },
-  userImage: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
-  },
-  userTextContainer: {
+  containerText: {
     marginLeft: 14,
     justifyContent: "center",
   },
+  image: {
+    width: 60,
+    height: 60,
+    borderRadius: 35,
+  },
   text: {
-    fontSize: 20,
+    color: colors.black,
+    fontSize: 18,
     fontFamily: "sans-serif",
     fontWeight: "bold",
-    paddingVertical: 3,
   },
 });
 
