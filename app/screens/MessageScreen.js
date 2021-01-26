@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   FlatList,
   SafeAreaView,
@@ -8,14 +8,18 @@ import {
   Text,
   Alert,
   RefreshControl,
+  View,
+  TouchableOpacity,
 } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
 
 import ListItem from "../components/ListItem";
 import ListItemDeleteAction from "../components/ListItemDeleteAction";
 import Seperator from "../components/Seperator";
 import colors from "../config/colors";
+import Back from "../components/Back";
 
-const data = [
+const initialMessages = [
   {
     id: 1,
     title: "user",
@@ -88,62 +92,108 @@ const data = [
     description: "Is product avaliable?",
     image: require("../assets/user.jpg"),
   },
+  {
+    id: 13,
+    title: "user",
+    description: "Is product avaliable?",
+    image: require("../assets/user.jpg"),
+  },
+  {
+    id: 14,
+    title: "user",
+    description: "Is product avaliable?",
+    image: require("../assets/user.jpg"),
+  },
+  {
+    id: 15,
+    title: "user",
+    description: "Is product avaliable?",
+    image: require("../assets/user.jpg"),
+  },
+  {
+    id: 16,
+    title: "user",
+    description: "Is product avaliable?",
+    image: require("../assets/user.jpg"),
+  },
 ];
 
-const wait = (timeout) => {
-  return new Promise((resolve) => {
-    setTimeout(resolve, timeout);
-  });
-};
-
 function MessageScreen(props) {
-  const [refreshing, setRefreshing] = React.useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [messages, setMessages] = useState(initialMessages);
 
   const onRefresh = () => {
-    console.log("Refreshing.");
-
     setRefreshing(true);
-    wait(2000).then(() => setRefreshing(false));
+    setMessages(initialMessages);
+    setRefreshing(false);
+  };
+
+  const handleDelete = (message) => {
+    setMessages(messages.filter((m) => m.id !== message.id));
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
-        data={data}
-        keyExtractor={(d) => d.id.toString()}
-        renderItem={({ item }) => (
-          <ListItem
-            title={item.title + item.id}
-            description={item.description}
-            image={item.image}
-            onPress={() =>
-              Alert.alert("Alert", "Tapped on: " + item.title + item.id)
-            }
-            renderRightActions={() => <ListItemDeleteAction />}
-          />
-        )}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-            colors={[colors.dodgerblue]}
-          />
-        }
-        ItemSeparatorComponent={() => <Seperator />}
-        ListFooterComponent={() => <Seperator />}
-        ListHeaderComponent={<Text style={styles.textTop}>Messages</Text>}
-      />
+      <View style={styles.containerTop}>
+        <Back color={colors.dodgerblue} onPress={() => null} />
+
+        <Text style={[styles.textTop]}>Messages</Text>
+
+        <TouchableOpacity>
+          <MaterialIcons name="add" size={28} color={colors.dodgerblue} />
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.containerList}>
+        <FlatList
+          data={messages}
+          keyExtractor={(message) => message.id.toString()}
+          renderItem={({ item }) => (
+            <ListItem
+              title={item.title + item.id}
+              description={item.description}
+              image={item.image}
+              onPress={() =>
+                Alert.alert("Alert", "Tapped on: " + item.title + item.id)
+              }
+              renderRightActions={() => (
+                <ListItemDeleteAction onPress={() => handleDelete(item)} />
+              )}
+            />
+          )}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              colors={[colors.secondary]}
+            />
+          }
+          ItemSeparatorComponent={() => <Seperator />}
+          ListFooterComponent={() => <Seperator />}
+        />
+      </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight + 5 : 0,
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+  },
+  containerTop: {
+    alignItems: "center",
+    flexDirection: "row",
+    height: "5%",
+    marginBottom: "1%",
+    paddingHorizontal: 5,
+    justifyContent: "space-between",
+  },
+  containerList: {
+    height: "95%",
   },
   textTop: {
     alignSelf: "center",
-    color: colors.secondary,
+    color: colors.dodgerblue,
     fontFamily: "sans-serif",
     fontSize: 24,
     fontWeight: "bold",

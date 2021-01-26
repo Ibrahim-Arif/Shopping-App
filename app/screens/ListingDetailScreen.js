@@ -20,6 +20,7 @@ function ListingDetailScreen({ image, discription, price }) {
         title="Ibrahim Arif"
         description="5 listings"
         image={require("../assets/user.jpg")}
+        onPress={() => null}
       />
     </View>
   );
@@ -34,6 +35,7 @@ const styles = StyleSheet.create({
   containerPost: {
     height: "50%",
     marginBottom: 10,
+    backgroundColor: colors.lightgrey,
   },
 
   containerDetail: {

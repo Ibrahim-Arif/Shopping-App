@@ -73,14 +73,14 @@ function WelcomeScreen(props) {
 
       <View style={styles.buttonView} accessibilityRole="button">
         <MyButton
-          title="register"
+          title="login"
           color={colors.dodgerblue}
           style={styles.buttonRegister}
           onPress={() => Alert.alert("Alert!", "Register tapped!")}
         />
 
         <MyButton
-          title="sign-in"
+          title="register"
           color={colors.secondary}
           style={styles.bottonSignIn}
           onPress={() => Alert.alert("Alert!", "Sign-In tapped!")}
