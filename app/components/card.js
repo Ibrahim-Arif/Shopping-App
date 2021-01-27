@@ -1,6 +1,5 @@
 import { Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import React from "react";
-import colors from "../config/colors";
 
 function Card({ img, description, price }) {
   return (
@@ -11,29 +10,28 @@ function Card({ img, description, price }) {
         defaultSource={require("../assets/background1.jpg")}
       />
       <Text style={styles.text}>{description}</Text>
-      <Text style={[styles.text, { color: colors.secondary }]}>
-        {"$" + price}
-      </Text>
+      <Text style={[styles.text, { color: "#4ecdc4" }]}>{"$" + price}</Text>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: colors.white,
+    backgroundColor: "#fff",
     borderRadius: 20,
     marginBottom: 15,
     overflow: "hidden",
   },
   image: {
     width: "100%",
-    height: 250,
+    height: 200,
     marginBottom: 5,
   },
   text: {
     fontSize: 20,
     fontWeight: "bold",
     paddingLeft: 20,
+    paddingVertical: 2,
   },
 });
 

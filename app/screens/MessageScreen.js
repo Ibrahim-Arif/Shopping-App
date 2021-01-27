@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import {
   FlatList,
-  SafeAreaView,
   StyleSheet,
-  Platform,
-  StatusBar,
   Text,
   Alert,
   RefreshControl,
@@ -18,6 +15,7 @@ import ListItemDeleteAction from "../components/ListItemDeleteAction";
 import Seperator from "../components/Seperator";
 import colors from "../config/colors";
 import Back from "../components/Back";
+import Screen from "../components/Screen";
 
 const initialMessages = [
   {
@@ -133,7 +131,7 @@ function MessageScreen(props) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <Screen>
       <View style={styles.containerTop}>
         <Back color={colors.dodgerblue} onPress={() => null} />
 
@@ -159,6 +157,7 @@ function MessageScreen(props) {
               renderRightActions={() => (
                 <ListItemDeleteAction onPress={() => handleDelete(item)} />
               )}
+              style={{ padding: 5 }}
             />
           )}
           refreshControl={
@@ -169,30 +168,24 @@ function MessageScreen(props) {
             />
           }
           ItemSeparatorComponent={() => <Seperator />}
-          ListFooterComponent={() => <Seperator />}
         />
       </View>
-    </SafeAreaView>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-  },
   containerTop: {
-    alignItems: "center",
+    alignItems: "flex-end",
     flexDirection: "row",
-    height: "5%",
-    marginBottom: "1%",
+    marginBottom: 5,
     paddingHorizontal: 5,
     justifyContent: "space-between",
   },
   containerList: {
-    height: "95%",
+    flex: 1,
   },
   textTop: {
-    alignSelf: "center",
     color: colors.dodgerblue,
     fontFamily: "sans-serif",
     fontSize: 24,

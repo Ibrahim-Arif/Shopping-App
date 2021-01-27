@@ -19,39 +19,49 @@ import ListingDetailScreen from "./app/screens/ListingDetailScreen";
 import MessageScreen from "./app/screens/MessageScreen";
 import Seperator from "./app/components/Seperator";
 import ListItemDeleteAction from "./app/components/ListItemDeleteAction";
+import Icon from "./app/components/Icon";
+import AccountScreen from "./app/screens/AccountScreen";
+import Screen from "./app/components/Screen";
+import ListingScreen from "./app/screens/ListingScreen";
 
 export default function App() {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       {/* <WelcomeScreen /> */}
 
       {/* <Card
         img={require("./app/assets/couch.jpg")}
-        description="Comfortable couce with pillows!"
+        description=""
         price="600"
       />
-      <Card
-        img={require("./app/assets/jacket.jpg")}
-        description="Red jacket for sale"
-        price="250"
-      /> */}
+       */}
 
-      <MessageScreen />
+      {/* <MessageScreen /> */}
+
+      {/* <Icon
+        name="trash-can"
+        size={60}
+        backgroundColor={colors.dodgerblue}
+        color={colors.white}
+      /> */}
+      {/* <MenuItem /> */}
+
+      {/* <AccountScreen /> */}
+
+      <ListingScreen />
 
       {/* <ListingDetailScreen /> */}
       {/* <ImageDetailScreen /> */}
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
     // backgroundColor: colors.lightgrey,
     // padding: 20,
     // paddingTop: 40,
-
     // alignItems: "center",
     // justifyContent: "center",
   },
