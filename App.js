@@ -1,9 +1,10 @@
 // import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
   View,
+  TextInput,
   Image,
   ImageBackground,
   TouchableOpacity,
@@ -23,11 +24,17 @@ import Icon from "./app/components/Icon";
 import AccountScreen from "./app/screens/AccountScreen";
 import Screen from "./app/components/Screen";
 import ListingScreen from "./app/screens/ListingScreen";
+import MyTextInput from "./app/components/MyTextInput";
+import LoginScreen from "./app/screens/LoginScreen";
 
 export default function App() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <View style={styles.container}>
       {/* <WelcomeScreen /> */}
+      <LoginScreen />
 
       {/* <Card
         img={require("./app/assets/couch.jpg")}
@@ -44,11 +51,27 @@ export default function App() {
         backgroundColor={colors.dodgerblue}
         color={colors.white}
       /> */}
+
       {/* <MenuItem /> */}
+
+      {/* <MyTextInput
+        iconName="email"
+        onChangeText={(text) => setEmail(text)}
+        placeholder="Email"
+        // style={{ width: "90%" }}
+      />
+      <MyTextInput
+        iconName="key"
+        onChangeText={(text) => setPassword(text)}
+        placeholder="Password"
+        secureTextEntry
+      />
+      <Text>{email}</Text>
+      <Text>{password}</Text> */}
 
       {/* <AccountScreen /> */}
 
-      <ListingScreen />
+      {/* <ListingScreen /> */}
 
       {/* <ListingDetailScreen /> */}
       {/* <ImageDetailScreen /> */}
@@ -59,6 +82,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    // top: 100,
     // backgroundColor: colors.lightgrey,
     // padding: 20,
     // paddingTop: 40,

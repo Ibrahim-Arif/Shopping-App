@@ -25,6 +25,14 @@ const menuItems = [
     },
   },
   {
+    title: "Help & Support",
+    onPress: null,
+    icon: {
+      name: "help",
+      backgroundColor: colors.darkgrey,
+    },
+  },
+  {
     title: "Account Settings",
     onPress: null,
     icon: {

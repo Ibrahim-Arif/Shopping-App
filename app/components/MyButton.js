@@ -4,6 +4,7 @@ import React from "react";
 function MyButton({ title, onPress, style, titleStyle, color = "#000" }) {
   return (
     <TouchableOpacity
+      activeOpacity={0.5}
       style={[styles.container, { backgroundColor: color }, style]}
       onPress={onPress}
     >
