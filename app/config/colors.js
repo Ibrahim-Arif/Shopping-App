@@ -8,4 +8,5 @@ export default {
   darkgrey: "#918C8C",
   danger: "#ff5252",
   yellow: "#ffe66d",
+  facebook: "#1877F2",
 };

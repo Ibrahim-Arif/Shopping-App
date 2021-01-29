@@ -26,15 +26,38 @@ import Screen from "./app/components/Screen";
 import ListingScreen from "./app/screens/ListingScreen";
 import MyTextInput from "./app/components/MyTextInput";
 import LoginScreen from "./app/screens/LoginScreen";
+import MyPicker from "./app/components/MyPicker";
 
 export default function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [catagory, setCatagory] = useState("Catagory");
+
+  const catagories = [
+    {
+      title: "furniture",
+      id: 1,
+    },
+    {
+      title: "clothing",
+      id: 2,
+    },
+    {
+      title: "camera",
+      id: 3,
+    },
+    {
+      title: "glasses",
+      id: 4,
+    },
+  ];
 
   return (
     <View style={styles.container}>
       {/* <WelcomeScreen /> */}
-      <LoginScreen />
+      {/* <LoginScreen /> */}
+
+      <MyPicker title={catagory} items={catagories} onPress={setCatagory} />
 
       {/* <Card
         img={require("./app/assets/couch.jpg")}
@@ -82,7 +105,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // top: 100,
+    top: 100,
     // backgroundColor: colors.lightgrey,
     // padding: 20,
     // paddingTop: 40,
