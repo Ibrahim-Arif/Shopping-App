@@ -14,6 +14,7 @@ import {
 
 import MyButton from "../components/MyButton";
 import colors from "../config/colors";
+import RegisterScreen from "./RegisterScreen";
 import LoginScreen from "./LoginScreen";
 
 const onPressWelcome = () => {
@@ -95,7 +96,7 @@ function WelcomeScreen(props) {
       </ImageBackground>
       <Modal visible={registerTapped || signinTapped} animationType="slide">
         {signinTapped && <LoginScreen onPressBack={setSigninTapped} />}
-        {registerTapped && <LoginScreen onPressBack={setResigterTapped} />}
+        {registerTapped && <RegisterScreen onPressBack={setResigterTapped} />}
       </Modal>
     </>
   );

@@ -11,6 +11,7 @@ import MyButton from "../components/MyButton";
 import Icon from "../components/Icon";
 
 const valiadationRules = yup.object().shape({
+  username: yup.string().required().label("Username"),
   email: yup.string().required().email().label("Email"),
   password: yup.string().required().min(6).max(16).label("Password"),
 });
@@ -35,16 +36,24 @@ function RegisterScreen({ onPressBack }) {
           style={{ marginLeft: 10 }}
           onPress={() => onPressBack(false)}
         />
-        <Text style={styles.topText}>Login</Text>
+        <Text style={styles.topText}>Register</Text>
       </View>
 
       <Formik
-        initialValues={{ email: "", password: "" }}
+        initialValues={{ username: "", email: "", password: "" }}
         onSubmit={(values) => console.log(values)}
         validationSchema={valiadationRules}
       >
         {({ handleChange, handleSubmit, errors }) => (
           <View style={styles.textInputContainer}>
+            <MyTextInput
+              onChangeText={handleChange("username")}
+              iconName="account"
+              placeholder="Username"
+              style={styles.textInput}
+            />
+            <Text style={styles.errortext}>{errors.username}</Text>
+
             <MyTextInput
               onChangeText={handleChange("email")}
               iconName="email"
@@ -63,17 +72,17 @@ function RegisterScreen({ onPressBack }) {
             <Text style={styles.errortext}>{errors.password}</Text>
 
             <MyButton
-              color={colors.dodgerblue}
+              title="Create Account"
+              color={colors.secondary}
               onPress={handleSubmit}
-              title="Login"
-              style={{ width: "80%", alignSelf: "center", marginTop: 40 }}
+              style={{ width: "80%", alignSelf: "center", marginTop: 25 }}
             />
           </View>
         )}
       </Formik>
 
       <View style={styles.signupIconsContainer}>
-        <Text style={styles.orText}>Or login with</Text>
+        <Text style={styles.orText}>Or register with</Text>
         <View style={styles.signupIcons}>
           <Icon
             name="google"
@@ -112,7 +121,7 @@ const styles = StyleSheet.create({
     height: 150,
     justifyContent: "space-between",
     paddingVertical: 10,
-    backgroundColor: colors.dodgerblue,
+    backgroundColor: colors.secondary,
   },
 
   orText: {
@@ -126,7 +135,7 @@ const styles = StyleSheet.create({
     width: "40%",
   },
   textInputContainer: {
-    height: 300,
+    height: 350,
     justifyContent: "center",
   },
   signupIconsContainer: {
@@ -138,8 +147,8 @@ const styles = StyleSheet.create({
     width: "90%",
     backgroundColor: colors.white,
     borderBottomWidth: 3,
-    borderBottomColor: colors.dodgerblue,
-    marginTop: 10,
+    borderBottomColor: colors.secondary,
+    marginTop: 5,
   },
   errortext: {
     color: colors.danger,

@@ -25,6 +25,7 @@ import AccountScreen from "./app/screens/AccountScreen";
 import Screen from "./app/components/Screen";
 import ListingScreen from "./app/screens/ListingScreen";
 import MyTextInput from "./app/components/MyTextInput";
+import RegisterScreen from "./app/screens/RegisterScreen";
 import LoginScreen from "./app/screens/LoginScreen";
 import MyPicker from "./app/components/MyPicker";
 
@@ -54,17 +55,18 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      {/* <WelcomeScreen /> */}
+      <WelcomeScreen />
+
+      {/* <RegisterScreen /> */}
       {/* <LoginScreen /> */}
 
-      <MyPicker title={catagory} items={catagories} onPress={setCatagory} />
+      {/* <MyPicker title={catagory} items={catagories} onPress={setCatagory} /> */}
 
       {/* <Card
         img={require("./app/assets/couch.jpg")}
-        description=""
+        description="couch"
         price="600"
-      />
-       */}
+      /> */}
 
       {/* <MessageScreen /> */}
 
@@ -105,7 +107,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    top: 100,
+    // top: 100,
     // backgroundColor: colors.lightgrey,
     // padding: 20,
     // paddingTop: 40,

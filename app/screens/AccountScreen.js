@@ -37,7 +37,7 @@ const menuItems = [
     onPress: null,
     icon: {
       name: "account-settings",
-      backgroundColor: colors.dodgerblue,
+      backgroundColor: colors.secondary,
     },
   },
 ];

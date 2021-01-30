@@ -133,12 +133,12 @@ function MessageScreen(props) {
   return (
     <Screen>
       <View style={styles.containerTop}>
-        <Back color={colors.dodgerblue} onPress={() => null} />
+        <Back color={colors.secondary} onPress={() => null} />
 
         <Text style={[styles.textTop]}>Messages</Text>
 
         <TouchableOpacity>
-          <MaterialIcons name="add" size={28} color={colors.dodgerblue} />
+          <MaterialIcons name="add" size={28} color={colors.secondary} />
         </TouchableOpacity>
       </View>
 
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   textTop: {
-    color: colors.dodgerblue,
+    color: colors.secondary,
     fontFamily: "sans-serif",
     fontSize: 24,
     fontWeight: "bold",

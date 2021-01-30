@@ -12,8 +12,10 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import PickerItem from "./PickerItem";
 
-function MyPicker({ title, items, style, onPress }) {
+function MyPicker({ title, icon, items, style, onPress }) {
   const [clicked, setClicked] = useState(false);
+  const [textColor, setTextColor] = useState("#7a7a7a");
+
   return (
     <>
       <TouchableWithoutFeedback
@@ -22,16 +24,15 @@ function MyPicker({ title, items, style, onPress }) {
         activeOpacity={0.2}
       >
         <View style={[styles.container, style]}>
-          <MaterialCommunityIcons
-            name="format-list-bulleted"
-            size={24}
-            color="#918C8C"
-          />
-          <Text style={[styles.text]}>{title}</Text>
+          {icon && (
+            <MaterialCommunityIcons name={icon} size={24} color="#918C8C" />
+          )}
+          <Text style={[styles.text, { color: textColor }]}>{title}</Text>
           <MaterialCommunityIcons
             name="chevron-down"
             size={24}
             color="#918C8C"
+            style={{ marginRight: 10 }}
           />
         </View>
       </TouchableWithoutFeedback>
@@ -48,6 +49,7 @@ function MyPicker({ title, items, style, onPress }) {
               onPress={() => {
                 onPress(item.title);
                 setClicked(false);
+                setTextColor("#070505");
               }}
             />
           )}
@@ -66,8 +68,6 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
   text: {
-    marginLeft: 10,
-    color: "#7a7a7a",
     fontSize: 18,
     fontWeight: "bold",
     flex: 1,
