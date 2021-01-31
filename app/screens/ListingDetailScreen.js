@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 
 import colors from "../config/colors";
 import ListItem from "../components/ListItem";
+import Seperator from "../components/Seperator";
 
 function ListingDetailScreen({ image, discription, price }) {
   return (
@@ -15,6 +16,8 @@ function ListingDetailScreen({ image, discription, price }) {
           <Text style={[styles.text, { color: colors.secondary }]}>$450</Text>
         </View>
       </TouchableOpacity>
+
+      <Seperator />
 
       <ListItem
         title="Ibrahim Arif"
@@ -34,13 +37,11 @@ const styles = StyleSheet.create({
 
   containerPost: {
     height: "50%",
-    marginBottom: 10,
-    backgroundColor: colors.lightgrey,
   },
 
   containerDetail: {
     paddingLeft: 14,
-    marginBottom: 20,
+    top: 10,
   },
 
   image: {
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: "sans-serif",
     fontWeight: "bold",
-    paddingVertical: 3,
+    paddingVertical: 2,
   },
 });
 

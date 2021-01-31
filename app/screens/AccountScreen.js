@@ -1,9 +1,8 @@
 import React from "react";
-import { StyleSheet, FlatList } from "react-native";
+import { StyleSheet, FlatList, View, StatusBar } from "react-native";
 
 import colors from "../config/colors";
 import ListItem from "../components/ListItem";
-import Screen from "../components/Screen";
 import Icon from "../components/Icon";
 import Seperator from "../components/Seperator";
 
@@ -44,14 +43,15 @@ const menuItems = [
 
 function AccountScreen(props) {
   return (
-    <Screen style={styles.container}>
-      <ListItem
-        title="Ibrahim Arif"
-        description="ibrahimrana232@gmail.com"
-        image={require("../assets/user.jpg")}
-        onPress={() => null}
-        style={{ marginBottom: 20 }}
-      />
+    <View style={styles.container}>
+      <View style={styles.userDetailContainer}>
+        <ListItem
+          title="Ibrahim Arif"
+          description="ibrahimrana232@gmail.com"
+          image={require("../assets/user.jpg")}
+          onPress={() => null}
+        />
+      </View>
 
       <FlatList
         data={menuItems}
@@ -78,15 +78,22 @@ function AccountScreen(props) {
             }
           />
         )}
+        ListHeaderComponent={() => <View style={{ marginTop: 20 }} />}
         ListFooterComponentStyle={{ marginTop: 20 }}
       />
-    </Screen>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.lightgrey,
+    flex: 1,
+  },
+  userDetailContainer: {
+    height: StatusBar.currentHeight + 80,
+    backgroundColor: colors.white,
+    justifyContent: "flex-end",
   },
 });
 export default AccountScreen;

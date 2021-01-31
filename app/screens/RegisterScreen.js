@@ -6,9 +6,9 @@ import * as yup from "yup";
 import { Formik } from "formik";
 
 import colors from "../config/colors";
-import MyTextInput from "../components/MyTextInput";
 import MyButton from "../components/MyButton";
 import Icon from "../components/Icon";
+import FormTextInput from "../components/FormTextInput";
 
 const valiadationRules = yup.object().shape({
   username: yup.string().required().label("Username"),
@@ -44,32 +44,27 @@ function RegisterScreen({ onPressBack }) {
         onSubmit={(values) => console.log(values)}
         validationSchema={valiadationRules}
       >
-        {({ handleChange, handleSubmit, errors }) => (
+        {({ handleSubmit }) => (
           <View style={styles.textInputContainer}>
-            <MyTextInput
-              onChangeText={handleChange("username")}
+            <FormTextInput
+              title="username"
               iconName="account"
               placeholder="Username"
               style={styles.textInput}
             />
-            <Text style={styles.errortext}>{errors.username}</Text>
-
-            <MyTextInput
-              onChangeText={handleChange("email")}
+            <FormTextInput
+              title="email"
               iconName="email"
               placeholder="Email"
               style={styles.textInput}
             />
-            <Text style={styles.errortext}>{errors.email}</Text>
-
-            <MyTextInput
-              onChangeText={handleChange("password")}
+            <FormTextInput
+              title="password"
               iconName="lock"
               placeholder="Password"
               secureTextEntry
               style={styles.textInput}
             />
-            <Text style={styles.errortext}>{errors.password}</Text>
 
             <MyButton
               title="Create Account"

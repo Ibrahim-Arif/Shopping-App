@@ -25,7 +25,12 @@ function MyPicker({ title, icon, items, style, onPress }) {
       >
         <View style={[styles.container, style]}>
           {icon && (
-            <MaterialCommunityIcons name={icon} size={24} color="#918C8C" />
+            <MaterialCommunityIcons
+              name={icon}
+              size={24}
+              color="#918C8C"
+              style={{ marginRight: 10 }}
+            />
           )}
           <Text style={[styles.text, { color: textColor }]}>{title}</Text>
           <MaterialCommunityIcons

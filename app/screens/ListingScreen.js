@@ -95,8 +95,8 @@ const styles = StyleSheet.create({
   containerTop: {
     alignItems: "flex-end",
     flexDirection: "row",
-    marginBottom: 5,
-    paddingHorizontal: 5,
+    marginBottom: 10,
+    paddingHorizontal: 10,
     justifyContent: "space-between",
   },
   textTop: {

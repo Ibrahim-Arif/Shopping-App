@@ -1,14 +1,15 @@
-import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, View, Text, Modal } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import GestureRecognizer from "react-native-swipe-gestures";
 import * as yup from "yup";
 import { Formik } from "formik";
 
 import colors from "../config/colors";
-import MyTextInput from "../components/MyTextInput";
 import MyButton from "../components/MyButton";
 import Icon from "../components/Icon";
+import ListingScreen from "./ListingScreen";
+import FormTextInput from "../components/FormTextInput";
 
 const valiadationRules = yup.object().shape({
   email: yup.string().required().email().label("Email"),
@@ -21,80 +22,85 @@ function RegisterScreen({ onPressBack }) {
     directionalOffsetThreshold: 80,
   };
 
+  const [loginTapped, setLoginTapped] = useState(false);
+
   return (
-    <GestureRecognizer
-      style={[styles.container]}
-      config={config}
-      onSwipeDown={() => onPressBack(false)}
-    >
-      <View style={styles.topContainer}>
-        <Ionicons
-          name="arrow-back"
-          size={24}
-          color={colors.white}
-          style={{ marginLeft: 10 }}
-          onPress={() => onPressBack(false)}
-        />
-        <Text style={styles.topText}>Login</Text>
-      </View>
-
-      <Formik
-        initialValues={{ email: "", password: "" }}
-        onSubmit={(values) => console.log(values)}
-        validationSchema={valiadationRules}
+    <>
+      <GestureRecognizer
+        style={[styles.container]}
+        config={config}
+        onSwipeDown={() => onPressBack(false)}
       >
-        {({ handleChange, handleSubmit, errors }) => (
-          <View style={styles.textInputContainer}>
-            <MyTextInput
-              onChangeText={handleChange("email")}
-              iconName="email"
-              placeholder="Email"
-              style={styles.textInput}
-            />
-            <Text style={styles.errortext}>{errors.email}</Text>
+        <View style={styles.topContainer}>
+          <Ionicons
+            name="arrow-back"
+            size={24}
+            color={colors.white}
+            style={{ marginLeft: 10 }}
+            onPress={() => onPressBack(false)}
+          />
+          <Text style={styles.topText}>Login</Text>
+        </View>
 
-            <MyTextInput
-              onChangeText={handleChange("password")}
-              iconName="lock"
-              placeholder="Password"
-              secureTextEntry
-              style={styles.textInput}
-            />
-            <Text style={styles.errortext}>{errors.password}</Text>
+        <Formik
+          initialValues={{ email: "", password: "" }}
+          onSubmit={() => setLoginTapped(true)}
+          validationSchema={valiadationRules}
+        >
+          {({ handleSubmit }) => (
+            <View style={styles.textInputContainer}>
+              <FormTextInput
+                title="email"
+                iconName="email"
+                placeholder="Email"
+                style={styles.textInput}
+              />
 
-            <MyButton
-              color={colors.dodgerblue}
-              onPress={handleSubmit}
-              title="Login"
-              style={{ width: "80%", alignSelf: "center", marginTop: 40 }}
+              <FormTextInput
+                title="password"
+                iconName="lock"
+                placeholder="Password"
+                secureTextEntry
+                style={styles.textInput}
+              />
+
+              <MyButton
+                color={colors.dodgerblue}
+                onPress={handleSubmit}
+                title="Login"
+                style={{ width: "80%", alignSelf: "center", marginTop: 40 }}
+              />
+            </View>
+          )}
+        </Formik>
+
+        <View style={styles.signupIconsContainer}>
+          <Text style={styles.orText}>Or login with</Text>
+          <View style={styles.signupIcons}>
+            <Icon
+              name="google"
+              onPress={() => null}
+              backgroundColor={colors.primary}
+            />
+            <Icon
+              name="facebook"
+              onPress={() => null}
+              backgroundColor={colors.facebook}
+              iconSize={32}
+            />
+            <Icon
+              name="twitter"
+              onPress={() => null}
+              backgroundColor={"#2294BD"}
+              iconSize={32}
             />
           </View>
-        )}
-      </Formik>
-
-      <View style={styles.signupIconsContainer}>
-        <Text style={styles.orText}>Or login with</Text>
-        <View style={styles.signupIcons}>
-          <Icon
-            name="google"
-            onPress={() => null}
-            backgroundColor={colors.primary}
-          />
-          <Icon
-            name="facebook"
-            onPress={() => null}
-            backgroundColor={colors.facebook}
-            iconSize={32}
-          />
-          <Icon
-            name="twitter"
-            onPress={() => null}
-            backgroundColor={"#2294BD"}
-            iconSize={32}
-          />
         </View>
-      </View>
-    </GestureRecognizer>
+      </GestureRecognizer>
+      <Modal visible={loginTapped}>
+        <ListingScreen />
+      </Modal>
+    </>
   );
 }
 

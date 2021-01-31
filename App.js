@@ -1,4 +1,3 @@
-// import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import {
   StyleSheet,
@@ -8,30 +7,19 @@ import {
   Image,
   ImageBackground,
   TouchableOpacity,
-  SafeAreaView,
 } from "react-native";
 
 import WelcomeScreen from "./app/screens/WelcomeScreen";
 import ImageDetailScreen from "./app/screens/ImageDetailScreen";
-import MyButton from "./app/components/MyButton";
-import Card from "./app/components/Card";
-import colors from "./app/config/colors";
 import ListingDetailScreen from "./app/screens/ListingDetailScreen";
 import MessageScreen from "./app/screens/MessageScreen";
-import Seperator from "./app/components/Seperator";
-import ListItemDeleteAction from "./app/components/ListItemDeleteAction";
-import Icon from "./app/components/Icon";
 import AccountScreen from "./app/screens/AccountScreen";
-import Screen from "./app/components/Screen";
 import ListingScreen from "./app/screens/ListingScreen";
-import MyTextInput from "./app/components/MyTextInput";
 import RegisterScreen from "./app/screens/RegisterScreen";
 import LoginScreen from "./app/screens/LoginScreen";
 import MyPicker from "./app/components/MyPicker";
 
 export default function App() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [catagory, setCatagory] = useState("Catagory");
 
   const catagories = [
@@ -59,40 +47,15 @@ export default function App() {
 
       {/* <RegisterScreen /> */}
       {/* <LoginScreen /> */}
-
-      {/* <MyPicker title={catagory} items={catagories} onPress={setCatagory} /> */}
-
-      {/* <Card
-        img={require("./app/assets/couch.jpg")}
-        description="couch"
-        price="600"
+      {/* 
+      <MyPicker
+        title={catagory}
+        icon="apps"
+        items={catagories}
+        onPress={setCatagory}
       /> */}
 
       {/* <MessageScreen /> */}
-
-      {/* <Icon
-        name="trash-can"
-        size={60}
-        backgroundColor={colors.dodgerblue}
-        color={colors.white}
-      /> */}
-
-      {/* <MenuItem /> */}
-
-      {/* <MyTextInput
-        iconName="email"
-        onChangeText={(text) => setEmail(text)}
-        placeholder="Email"
-        // style={{ width: "90%" }}
-      />
-      <MyTextInput
-        iconName="key"
-        onChangeText={(text) => setPassword(text)}
-        placeholder="Password"
-        secureTextEntry
-      />
-      <Text>{email}</Text>
-      <Text>{password}</Text> */}
 
       {/* <AccountScreen /> */}
 

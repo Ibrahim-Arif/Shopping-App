@@ -1,19 +1,25 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
+import {
+  StyleSheet,
+  View,
+  Image,
+  TouchableOpacity,
+  SafeAreaView,
+} from "react-native";
 import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
-import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
+
+import colors from "../config/colors";
+import Screen from "../components/Screen";
 
 export default function ImageDetailScreen(props) {
   return (
-    <View style={styles.container}>
-      <StatusBar style="light" />
-
+    <Screen style={styles.container}>
       <View style={styles.iconView}>
-        <TouchableOpacity style={styles.buttonView}>
+        <TouchableOpacity>
           <Ionicons name="arrow-back-sharp" size={30} color="white" />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.buttonView}>
+        <TouchableOpacity>
           <MaterialCommunityIcons
             name="trash-can-outline"
             size={30}
@@ -27,14 +33,13 @@ export default function ImageDetailScreen(props) {
         source={require("../assets/jacket.jpg")}
         resizeMode="contain"
       />
-    </View>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "black",
+    backgroundColor: colors.black,
   },
   iconView: {
     flexDirection: "row",
@@ -44,9 +49,6 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     height: "75%",
-    top: "10%",
-  },
-  buttonView: {
     top: "10%",
   },
 });
