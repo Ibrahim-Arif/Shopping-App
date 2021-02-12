@@ -9,13 +9,15 @@ import FormTextInput from "../components/FormTextInput";
 import MyButton from "../components/MyButton";
 import TopTitle from "../components/TopTitle";
 import FormPicker from "../components/FormPicker";
-import ImagePickerList from "../components/ImagePickerList";
+import FormImagePicker from "../components/FormImagePicker";
+import useLocation from "../hooks/useLocation";
 
 const valiadationRules = yup.object().shape({
   title: yup.string().required().min(1).label("Title"),
   price: yup.string().required().min(1).label("Price"),
   category: yup.string().required().nullable().label("Category"),
   description: yup.string().label("Description"),
+  images: yup.array().min(1, "Please select atleast one image"),
 });
 
 const categories = [
@@ -30,7 +32,8 @@ const categories = [
 ];
 
 function ListingEditingScreen(props) {
-  const [images, setImages] = useState([]);
+  const location = useLocation();
+  console.log(location);
 
   return (
     <Screen style={styles.container}>
@@ -43,19 +46,14 @@ function ListingEditingScreen(props) {
             description: "",
             price: "",
             title: "",
+            images: [],
           }}
           onSubmit={(values) => console.log(values)}
           validationSchema={valiadationRules}
         >
           {({ handleSubmit }) => (
             <View style={styles.formContainer}>
-              <ImagePickerList
-                onAdd={(image) => setImages([...images, image])}
-                onDelete={(image) =>
-                  setImages(images.filter((i) => i !== image))
-                }
-                imageUris={images}
-              />
+              <FormImagePicker title="images" />
 
               <FormTextInput
                 title="title"

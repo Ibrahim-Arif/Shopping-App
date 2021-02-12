@@ -4,7 +4,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import * as imagePicker from "expo-image-picker";
 
-function ImagePicker({ imageUri, onChangeImage, forList = false, style }) {
+function ImagePicker({ imageUri, onChangeImage, style }) {
   useEffect(() => {
     async () => await imagePicker.requestCameraRollPermissionsAsync();
   }, []);
@@ -28,10 +28,7 @@ function ImagePicker({ imageUri, onChangeImage, forList = false, style }) {
           { text: "No" },
           {
             text: "Yes",
-            onPress: () => onChangeImage(forList ? imageUri : null),
-            // if creating for list of image picker
-            // then it will return image uri for filter method
-            // else it will set its uri to null
+            onPress: () => onChangeImage(null),
           },
         ]);
   };
