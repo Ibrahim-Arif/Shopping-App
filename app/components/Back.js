@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
   },
   text: {
     alignSelf: "center",
-    fontFamily: "sans-serif",
     fontSize: 16,
     fontWeight: "bold",
   },

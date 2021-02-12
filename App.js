@@ -1,52 +1,29 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  Image,
-  ImageBackground,
-  TouchableOpacity,
-} from "react-native";
+import { View, StyleSheet, Image } from "react-native";
 
-import WelcomeScreen from "./app/screens/WelcomeScreen";
+import AccountScreen from "./app/screens/AccountScreen";
 import ImageDetailScreen from "./app/screens/ImageDetailScreen";
 import ListingDetailScreen from "./app/screens/ListingDetailScreen";
-import MessageScreen from "./app/screens/MessageScreen";
-import AccountScreen from "./app/screens/AccountScreen";
+import ListingEditingScreen from "./app/screens/ListingEditingScreen";
 import ListingScreen from "./app/screens/ListingScreen";
-import RegisterScreen from "./app/screens/RegisterScreen";
 import LoginScreen from "./app/screens/LoginScreen";
+import MessageScreen from "./app/screens/MessageScreen";
 import MyPicker from "./app/components/MyPicker";
+import RegisterScreen from "./app/screens/RegisterScreen";
+import WelcomeScreen from "./app/screens/WelcomeScreen";
+import ImagePicker from "./app/components/ImagePicker";
+import ImagePickerList from "./app/components/ImagePickerList";
 
 export default function App() {
-  const [catagory, setCatagory] = useState("Catagory");
-
-  const catagories = [
-    {
-      title: "furniture",
-      id: 1,
-    },
-    {
-      title: "clothing",
-      id: 2,
-    },
-    {
-      title: "camera",
-      id: 3,
-    },
-    {
-      title: "glasses",
-      id: 4,
-    },
-  ];
-
   return (
     <View style={styles.container}>
-      <WelcomeScreen />
+      {/* <WelcomeScreen /> */}
+
+      {/* imageItem, imagePicker, imageItemList */}
 
       {/* <RegisterScreen /> */}
       {/* <LoginScreen /> */}
+
       {/* 
       <MyPicker
         title={catagory}
@@ -55,14 +32,12 @@ export default function App() {
         onPress={setCatagory}
       /> */}
 
-      {/* <MessageScreen /> */}
-
       {/* <AccountScreen /> */}
-
-      {/* <ListingScreen /> */}
-
-      {/* <ListingDetailScreen /> */}
       {/* <ImageDetailScreen /> */}
+      <ListingEditingScreen />
+      {/* <ListingDetailScreen /> */}
+      {/* <ListingScreen /> */}
+      {/* <MessageScreen /> */}
     </View>
   );
 }
@@ -70,11 +45,11 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    // alignItems: "center",
+    // justifyContent: "center",
     // top: 100,
     // backgroundColor: colors.lightgrey,
     // padding: 20,
     // paddingTop: 40,
-    // alignItems: "center",
-    // justifyContent: "center",
   },
 });

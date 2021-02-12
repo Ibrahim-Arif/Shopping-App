@@ -3,7 +3,7 @@ import { TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 function Icon({
-  backgroundColor = "#000",
+  backgroundColor,
   color = "#fff",
   name,
   onPress,

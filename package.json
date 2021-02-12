@@ -17,7 +17,8 @@
     "react-native-gesture-handler": "~1.8.0",
     "react-native-swipe-gestures": "^1.0.5",
     "react-native-web": "~0.13.12",
-    "yup": "^0.32.8"
+    "yup": "^0.32.8",
+    "expo-image-picker": "~9.2.0"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"

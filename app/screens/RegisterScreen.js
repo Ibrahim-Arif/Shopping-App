@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import GestureRecognizer from "react-native-swipe-gestures";
 import * as yup from "yup";
@@ -39,65 +39,70 @@ function RegisterScreen({ onPressBack }) {
         <Text style={styles.topText}>Register</Text>
       </View>
 
-      <Formik
-        initialValues={{ username: "", email: "", password: "" }}
-        onSubmit={(values) => console.log(values)}
-        validationSchema={valiadationRules}
-      >
-        {({ handleSubmit }) => (
-          <View style={styles.textInputContainer}>
-            <FormTextInput
-              title="username"
-              iconName="account"
-              placeholder="Username"
-              style={styles.textInput}
-            />
-            <FormTextInput
-              title="email"
-              iconName="email"
-              placeholder="Email"
-              style={styles.textInput}
-            />
-            <FormTextInput
-              title="password"
-              iconName="lock"
-              placeholder="Password"
-              secureTextEntry
-              style={styles.textInput}
-            />
+      <ScrollView>
+        <Formik
+          initialValues={{ username: "", email: "", password: "" }}
+          onSubmit={(values) => console.log(values)}
+          validationSchema={valiadationRules}
+        >
+          {({ handleSubmit }) => (
+            <View style={styles.textInputContainer}>
+              <FormTextInput
+                title="username"
+                iconName="account"
+                placeholder="Username"
+                width="90%"
+                style={styles.textInput}
+              />
+              <FormTextInput
+                title="email"
+                iconName="email"
+                placeholder="Email"
+                width="90%"
+                style={styles.textInput}
+              />
+              <FormTextInput
+                title="password"
+                iconName="lock"
+                placeholder="Password"
+                width="90%"
+                secureTextEntry
+                style={styles.textInput}
+              />
 
-            <MyButton
-              title="Create Account"
-              color={colors.secondary}
-              onPress={handleSubmit}
-              style={{ width: "80%", alignSelf: "center", marginTop: 25 }}
+              <MyButton
+                title="Create Account"
+                color={colors.secondary}
+                onPress={handleSubmit}
+                style={{ width: "80%", alignSelf: "center", marginTop: 25 }}
+              />
+            </View>
+          )}
+        </Formik>
+
+        <View style={styles.signupIconsContainer}>
+          <Text style={styles.orText}>Or register with</Text>
+          <View style={styles.signupIcons}>
+            <Icon
+              name="google"
+              onPress={() => null}
+              backgroundColor={colors.primary}
+            />
+            <Icon
+              name="facebook"
+              onPress={() => null}
+              backgroundColor={colors.facebook}
+              iconSize={32}
+            />
+            <Icon
+              name="twitter"
+              onPress={() => null}
+              backgroundColor={"#2294BD"}
+              iconSize={32}
             />
           </View>
-        )}
-      </Formik>
-
-      <View style={styles.signupIconsContainer}>
-        <Text style={styles.orText}>Or register with</Text>
-        <View style={styles.signupIcons}>
-          <Icon
-            name="google"
-            onPress={() => null}
-            backgroundColor={colors.primary}
-          />
-          <Icon
-            name="facebook"
-            onPress={() => null}
-            backgroundColor={colors.facebook}
-            iconSize={32}
-          />
-          <Icon
-            name="twitter"
-            onPress={() => null}
-            backgroundColor={"#2294BD"}
-            iconSize={32}
-          />
         </View>
-      </View>
+      </ScrollView>
     </GestureRecognizer>
   );
 }
@@ -130,6 +135,7 @@ const styles = StyleSheet.create({
     width: "40%",
   },
   textInputContainer: {
+    alignItems: "center",
     height: 350,
     justifyContent: "center",
   },
@@ -139,17 +145,11 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   textInput: {
-    width: "90%",
     backgroundColor: colors.white,
-    borderBottomWidth: 3,
+    borderBottomWidth: 2,
     borderBottomColor: colors.secondary,
     marginTop: 5,
-  },
-  errortext: {
-    color: colors.danger,
-    marginLeft: 35,
-    fontSize: 15,
-    marginTop: -5,
+    borderRadius: 0,
   },
 });
 

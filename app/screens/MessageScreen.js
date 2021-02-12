@@ -2,20 +2,17 @@ import React, { useState } from "react";
 import {
   FlatList,
   StyleSheet,
-  Text,
   Alert,
   RefreshControl,
   View,
-  TouchableOpacity,
 } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
 
 import ListItem from "../components/ListItem";
 import ListItemDeleteAction from "../components/ListItemDeleteAction";
 import Seperator from "../components/Seperator";
 import colors from "../config/colors";
-import Back from "../components/Back";
 import Screen from "../components/Screen";
+import TopTitle from "../components/TopTitle";
 
 const initialMessages = [
   {
@@ -132,15 +129,7 @@ function MessageScreen(props) {
 
   return (
     <Screen>
-      <View style={styles.containerTop}>
-        <Back color={colors.secondary} onPress={() => null} />
-
-        <Text style={[styles.textTop]}>Messages</Text>
-
-        <TouchableOpacity>
-          <MaterialIcons name="add" size={28} color={colors.secondary} />
-        </TouchableOpacity>
-      </View>
+      <TopTitle title="Messages" rightIcon="plus" color={colors.secondary} />
 
       <View style={styles.containerList}>
         <FlatList
@@ -151,6 +140,7 @@ function MessageScreen(props) {
               title={item.title + item.id}
               description={item.description}
               image={item.image}
+              rightIcon={true}
               onPress={() =>
                 Alert.alert("Alert", "Tapped on: " + item.title + item.id)
               }
@@ -175,21 +165,8 @@ function MessageScreen(props) {
 }
 
 const styles = StyleSheet.create({
-  containerTop: {
-    alignItems: "flex-end",
-    flexDirection: "row",
-    marginBottom: 10,
-    paddingHorizontal: 5,
-    justifyContent: "space-between",
-  },
   containerList: {
     flex: 1,
-  },
-  textTop: {
-    color: colors.secondary,
-    fontFamily: "sans-serif",
-    fontSize: 24,
-    fontWeight: "bold",
   },
 });
 

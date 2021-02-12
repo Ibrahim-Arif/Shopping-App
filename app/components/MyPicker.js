@@ -32,7 +32,9 @@ function MyPicker({ title, icon, items, style, onPress }) {
               style={{ marginRight: 10 }}
             />
           )}
-          <Text style={[styles.text, { color: textColor }]}>{title}</Text>
+          {title && (
+            <Text style={[styles.text, { color: textColor }]}>{title}</Text>
+          )}
           <MaterialCommunityIcons
             name="chevron-down"
             size={24}
@@ -67,14 +69,13 @@ function MyPicker({ title, icon, items, style, onPress }) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#E7E9E9",
-    flexDirection: "row",
-    paddingVertical: 10,
-    paddingHorizontal: 14,
     borderRadius: 30,
+    flexDirection: "row",
+    paddingHorizontal: 5,
+    alignItems: "center",
   },
   text: {
     fontSize: 18,
-    fontWeight: "bold",
     flex: 1,
   },
 });

@@ -1,7 +1,13 @@
 import { TouchableOpacity, StyleSheet, Text } from "react-native";
 import React from "react";
 
-function MyButton({ title, onPress, style, titleStyle, color = "#000" }) {
+function MyButton({
+  title = "Button",
+  onPress,
+  style,
+  titleStyle,
+  color = "#000",
+}) {
   return (
     <TouchableOpacity
       activeOpacity={0.5}

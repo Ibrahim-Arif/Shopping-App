@@ -26,7 +26,6 @@ function MyTextInput({
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    alignSelf: "center",
     backgroundColor: "#E7E9E9",
     borderRadius: 15,
     flexDirection: "row",

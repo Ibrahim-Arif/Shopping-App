@@ -7,6 +7,7 @@ import {
   TouchableHighlight,
 } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
+import { Entypo } from "@expo/vector-icons";
 
 function ListItem({
   title,
@@ -15,6 +16,7 @@ function ListItem({
   IconComponent,
   onPress,
   renderRightActions,
+  rightIcon = false,
   style,
 }) {
   return (
@@ -29,14 +31,28 @@ function ListItem({
           {IconComponent}
 
           <View style={styles.containerText}>
-            <Text style={[styles.text]}>{title}</Text>
+            <Text numberOfLines={1} style={[styles.text]}>
+              {title}
+            </Text>
 
             {description && (
-              <Text style={[styles.text, { color: "#918C8C", fontSize: 16 }]}>
+              <Text
+                numberOfLines={2}
+                style={[styles.text, { color: "#918C8C", fontSize: 16 }]}
+              >
                 {description}
               </Text>
             )}
           </View>
+
+          {rightIcon && (
+            <Entypo
+              name="chevron-right"
+              style={styles.rightIcon}
+              size={24}
+              color="#918C8C"
+            />
+          )}
         </View>
       </TouchableHighlight>
     </Swipeable>
@@ -51,6 +67,7 @@ const styles = StyleSheet.create({
   },
   containerText: {
     marginLeft: 14,
+    flex: 1,
     justifyContent: "center",
   },
   image: {
@@ -63,6 +80,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: "sans-serif",
     fontWeight: "bold",
+  },
+  rightIcon: {
+    alignSelf: "center",
+    marginHorizontal: 6,
   },
 });
 

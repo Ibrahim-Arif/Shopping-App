@@ -1,32 +1,24 @@
 import React from "react";
-import { StyleSheet, Text } from "react-native";
+import { View } from "react-native";
 import { useFormikContext } from "formik";
 
 import MyTextInput from "./MyTextInput";
-import colors from "../config/colors";
+import ErrorText from "./ErrorText";
 
-function FormTextInput({ title, ...otherProps }) {
-  const { setFieldTouched, handleChange, touched, errors } = useFormikContext();
+function FormTextInput({ title, width, ...otherProps }) {
+  const { setFieldTouched, handleChange } = useFormikContext();
 
   return (
-    <>
+    <View style={{ width: width }}>
       <MyTextInput
         onBlur={() => setFieldTouched(title)}
         onChangeText={handleChange(title)}
+        style={[otherProps.style]}
         {...otherProps}
       />
-      {touched[title] && <Text style={styles.errortext}>{errors[title]}</Text>}
-    </>
+      <ErrorText title={title} />
+    </View>
   );
 }
-
-const styles = StyleSheet.create({
-  errortext: {
-    color: colors.danger,
-    marginLeft: 35,
-    fontSize: 15,
-    marginTop: -5,
-  },
-});
 
 export default FormTextInput;
