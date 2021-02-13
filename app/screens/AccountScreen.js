@@ -6,51 +6,52 @@ import ListItem from "../components/ListItem";
 import Icon from "../components/Icon";
 import Seperator from "../components/Seperator";
 
-const menuItems = [
-  {
-    title: "My Listings",
-    onPress: null,
-    icon: {
-      name: "format-list-bulleted",
-      backgroundColor: colors.primary,
-    },
-  },
-  {
-    title: "My Messages",
-    onPress: null,
-    icon: {
-      name: "email",
-      backgroundColor: colors.secondary,
-    },
-  },
-  {
-    title: "Help & Support",
-    onPress: null,
-    icon: {
-      name: "help",
-      backgroundColor: colors.darkgrey,
-    },
-  },
-  {
-    title: "Account Settings",
-    onPress: null,
-    icon: {
-      name: "account-settings",
-      backgroundColor: colors.secondary,
-    },
-  },
-];
+function AccountScreen({ navigation }) {
+  // console.log(props);
+  // const { title, description, image } = route.params;
+  const title = "Ibrahim";
+  const description = "Some description here";
+  const image = require("../assets/user.jpg");
 
-function AccountScreen(props) {
+  const menuItems = [
+    {
+      title: "My Listings",
+      onPress: null,
+      icon: {
+        name: "format-list-bulleted",
+        backgroundColor: colors.primary,
+      },
+    },
+    {
+      title: "My Messages",
+      onPress: () => navigation.navigate("Messages"),
+      icon: {
+        name: "email",
+        backgroundColor: colors.secondary,
+      },
+    },
+    {
+      title: "Help & Support",
+      onPress: null,
+      icon: {
+        name: "help",
+        backgroundColor: colors.darkgrey,
+      },
+    },
+    {
+      title: "Account Settings",
+      onPress: null,
+      icon: {
+        name: "account-settings",
+        backgroundColor: colors.secondary,
+      },
+    },
+  ];
+
   return (
     <View style={styles.container}>
       <View style={styles.userDetailContainer}>
-        <ListItem
-          title="Ibrahim Arif"
-          description="ibrahimrana232@gmail.com"
-          image={require("../assets/user.jpg")}
-          onPress={() => null}
-        />
+        <ListItem title={title} description={description} image={image} />
       </View>
 
       <FlatList
@@ -58,7 +59,7 @@ function AccountScreen(props) {
         renderItem={({ item }) => (
           <ListItem
             title={item.title}
-            onPress={() => item.onPress}
+            onPress={item.onPress}
             IconComponent={
               <Icon
                 name={item.icon.name}

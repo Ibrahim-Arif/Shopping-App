@@ -1,12 +1,13 @@
 import { Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import React from "react";
 
-function Card({ img, description, price }) {
+function Card({ img, description, price, onPress }) {
   return (
-    <TouchableOpacity style={styles.card}>
+    <TouchableOpacity style={styles.card} onPress={onPress}>
       <Image
         style={styles.image}
         source={img}
+        resizeMode="cover"
         defaultSource={require("../assets/background1.jpg")}
       />
       <Text style={styles.text}>{description}</Text>

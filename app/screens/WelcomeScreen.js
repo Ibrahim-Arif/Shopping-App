@@ -36,7 +36,7 @@ const onPressLogo = () => {
   );
 };
 
-function WelcomeScreen(props) {
+function WelcomeScreen({ navigation }) {
   const [registerTapped, setResigterTapped] = useState(false);
   const [signinTapped, setSigninTapped] = useState(false);
 

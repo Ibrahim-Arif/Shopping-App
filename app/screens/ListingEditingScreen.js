@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import * as yup from "yup";
 import { Formik } from "formik";
@@ -33,7 +33,7 @@ const categories = [
 
 function ListingEditingScreen(props) {
   const location = useLocation();
-  console.log(location);
+  // console.log(location);
 
   return (
     <Screen style={styles.container}>

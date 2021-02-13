@@ -9,6 +9,7 @@ import colors from "../config/colors";
 import MyButton from "../components/MyButton";
 import Icon from "../components/Icon";
 import FormTextInput from "../components/FormTextInput";
+import { useNavigation } from "@react-navigation/native";
 
 const valiadationRules = yup.object().shape({
   username: yup.string().required().label("Username"),
@@ -17,6 +18,8 @@ const valiadationRules = yup.object().shape({
 });
 
 function RegisterScreen({ onPressBack }) {
+  const navigation = useNavigation();
+
   const config = {
     velocityThreshold: 0.8,
     directionalOffsetThreshold: 80,
@@ -42,7 +45,10 @@ function RegisterScreen({ onPressBack }) {
       <ScrollView>
         <Formik
           initialValues={{ username: "", email: "", password: "" }}
-          onSubmit={(values) => console.log(values)}
+          onSubmit={() => {
+            navigation.navigate("Home");
+            onPressBack(false);
+          }}
           validationSchema={valiadationRules}
         >
           {({ handleSubmit }) => (

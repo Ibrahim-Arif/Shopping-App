@@ -28,20 +28,26 @@ const items = [
     price: "700",
   },
   {
+    id: 5,
+    img: require("../assets/5.jpg"),
+    description: "Comfortable couce with pillows!",
+    price: "700",
+  },
+  {
     id: 3,
-    img: require("../assets/background2.jpg"),
+    img: require("../assets/1.webp"),
     description: "Red jacket for sale",
     price: "250",
   },
   {
     id: 4,
-    img: require("../assets/background1.jpg"),
+    img: require("../assets/3.jpg"),
     description: "Comfortable couce with pillows!",
     price: "700",
   },
 ];
 
-function ListingScreen(props) {
+function ListingScreen({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = () => {
@@ -57,7 +63,7 @@ function ListingScreen(props) {
 
         <Text style={[styles.textTop]}>New Arrival</Text>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => null}>
           <Entypo name="list" size={28} color={colors.secondary} />
         </TouchableOpacity>
       </View>
@@ -71,6 +77,13 @@ function ListingScreen(props) {
               img={item.img}
               description={item.description}
               price={item.price}
+              onPress={() =>
+                navigation.navigate("ListingDetail", {
+                  image: item.img,
+                  description: item.description,
+                  price: item.price,
+                })
+              }
             />
           )}
           showsVerticalScrollIndicator={false}

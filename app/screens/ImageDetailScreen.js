@@ -11,7 +11,9 @@ import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import colors from "../config/colors";
 import Screen from "../components/Screen";
 
-export default function ImageDetailScreen(props) {
+export default function ImageDetailScreen({ route }) {
+  const { image } = route.params;
+
   return (
     <Screen style={styles.container}>
       <View style={styles.iconView}>
@@ -28,11 +30,7 @@ export default function ImageDetailScreen(props) {
         </TouchableOpacity>
       </View>
 
-      <Image
-        style={styles.image}
-        source={require("../assets/jacket.jpg")}
-        resizeMode="contain"
-      />
+      <Image style={styles.image} source={image} resizeMode="cover" />
     </Screen>
   );
 }

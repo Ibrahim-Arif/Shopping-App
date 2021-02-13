@@ -5,15 +5,22 @@ import colors from "../config/colors";
 import ListItem from "../components/ListItem";
 import Seperator from "../components/Seperator";
 
-function ListingDetailScreen({ image, discription, price }) {
+function ListingDetailScreen({ route, navigation }) {
+  const { image, description, price } = route.params;
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.containerPost}>
-        <Image style={styles.image} source={require("../assets/couch.jpg")} />
+      <TouchableOpacity
+        style={styles.containerPost}
+        onPress={() => navigation.navigate("ImageDetail", { image })}
+      >
+        <Image style={styles.image} source={image} />
 
         <View style={styles.containerDetail}>
-          <Text style={styles.text}>Red couce for sale!</Text>
-          <Text style={[styles.text, { color: colors.secondary }]}>$450</Text>
+          <Text style={styles.text}>{description}</Text>
+          <Text style={[styles.text, { color: colors.secondary }]}>
+            ${price}
+          </Text>
         </View>
       </TouchableOpacity>
 
