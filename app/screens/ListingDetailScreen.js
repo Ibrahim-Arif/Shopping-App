@@ -48,7 +48,6 @@ const styles = StyleSheet.create({
 
   containerDetail: {
     paddingLeft: 14,
-    top: 10,
   },
 
   image: {

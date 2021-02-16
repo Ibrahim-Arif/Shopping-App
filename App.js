@@ -16,15 +16,7 @@ const FeedStack = createStackNavigator();
 const FeedNavigtor = () => (
   <FeedStack.Navigator initialRouteName="Home">
     <FeedStack.Screen name="Welcome" component={WelcomeScreen} />
-    <FeedStack.Screen
-      name="Home"
-      component={ListingScreen}
-      options={{
-        headerStyle: {
-          backgroundColor: "pink",
-        },
-      }}
-    />
+    <FeedStack.Screen name="Home" component={ListingScreen} />
     <FeedStack.Screen name="ListingDetail" component={ListingDetailScreen} />
     <FeedStack.Screen name="ImageDetail" component={ImageDetailScreen} />
   </FeedStack.Navigator>
