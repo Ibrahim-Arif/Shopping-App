@@ -1,8 +1,10 @@
 import React from "react";
+import { View, StyleSheet } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
-import { MaterialCommunityIcons, Feather } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 
 import AccountScreen from "./app/screens/AccountScreen";
 import ImageDetailScreen from "./app/screens/ImageDetailScreen";
@@ -10,15 +12,28 @@ import ListingDetailScreen from "./app/screens/ListingDetailScreen";
 import ListingEditingScreen from "./app/screens/ListingEditingScreen";
 import ListingScreen from "./app/screens/ListingScreen";
 import MessageScreen from "./app/screens/MessageScreen";
-import WelcomeScreen from "./app/screens/WelcomeScreen";
+import WelcomeNavigator from "./app/navigations/WelcomeNavigator";
+import NavigationTheme from "./app/navigations/NavigationTheme";
+import colors from "./app/config/colors";
 
 const FeedStack = createStackNavigator();
 const FeedNavigtor = () => (
   <FeedStack.Navigator initialRouteName="Home">
-    <FeedStack.Screen name="Welcome" component={WelcomeScreen} />
-    <FeedStack.Screen name="Home" component={ListingScreen} />
-    <FeedStack.Screen name="ListingDetail" component={ListingDetailScreen} />
-    <FeedStack.Screen name="ImageDetail" component={ImageDetailScreen} />
+    <FeedStack.Screen
+      name="Home"
+      component={ListingScreen}
+      options={{ headerShown: false }}
+    />
+    <FeedStack.Screen
+      name="ListingDetail"
+      component={ListingDetailScreen}
+      options={{ title: "Details" }}
+    />
+    <FeedStack.Screen
+      name="ImageDetail"
+      component={ImageDetailScreen}
+      options={{ headerShown: false }}
+    />
   </FeedStack.Navigator>
 );
 
@@ -46,24 +61,27 @@ const TabNavigator = () => (
       name="Add"
       component={ListingEditingScreen}
       options={{
-        tabBarIcon: ({ size, color }) => (
-          <Feather name="plus" size={size} color={color} />
+        tabBarIcon: ({ size }) => (
+          <View style={styles.addIcon}>
+            <AntDesign name="pluscircle" size={size + 10} color="#fff" />
+          </View>
         ),
+        title: "",
       }}
     />
-    <Tabs.Screen
-      name="Messages"
-      component={MessageScreen}
-      options={{
-        tabBarIcon: ({ size, color }) => (
-          <MaterialCommunityIcons
-            name="android-messages"
-            size={size}
-            color={color}
-          />
-        ),
-      }}
-    />
+    {/* <Tabs.Screen
+        name="Messages"
+        component={MessageScreen}
+        options={{
+          tabBarIcon: ({ size, color }) => (
+            <MaterialCommunityIcons
+              name="android-messages"
+              size={size}
+              color={color}
+            />
+          ),
+        }}
+      /> */}
     <Tabs.Screen
       name="Account"
       component={AccountNavigator}
@@ -71,6 +89,7 @@ const TabNavigator = () => (
         tabBarIcon: ({ size, color }) => (
           <MaterialCommunityIcons name="account" size={size} color={color} />
         ),
+        headerShown: false,
       }}
     />
   </Tabs.Navigator>
@@ -78,11 +97,23 @@ const TabNavigator = () => (
 
 export default function App() {
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={NavigationTheme}>
       <TabNavigator />
+      {/* <WelcomeNavigator /> */}
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  addIcon: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: colors.primary,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
 
 // initialParam={{
 //   title: "Ibrahim Arif",

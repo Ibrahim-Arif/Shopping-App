@@ -11,20 +11,23 @@ import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import colors from "../config/colors";
 import Screen from "../components/Screen";
 
-export default function ImageDetailScreen({ route }) {
+export default function ImageDetailScreen({ route, navigation }) {
   const { image } = route.params;
 
   return (
     <Screen style={styles.container}>
       <View style={styles.iconView}>
-        <TouchableOpacity>
-          <Ionicons name="arrow-back-sharp" size={30} color="white" />
+        <TouchableOpacity
+          onPress={() => navigation.navigate("ListingDetail")}
+          activeOpacity={0.5}
+        >
+          <Ionicons name="arrow-back-sharp" size={26} color="white" />
         </TouchableOpacity>
 
         <TouchableOpacity>
           <MaterialCommunityIcons
             name="trash-can-outline"
-            size={30}
+            size={26}
             color="white"
           />
         </TouchableOpacity>

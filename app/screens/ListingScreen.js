@@ -58,7 +58,7 @@ function ListingScreen({ navigation }) {
 
   return (
     <Screen style={{ backgroundColor: colors.lightgrey }}>
-      <View style={styles.containerTop}>
+      {/* <View style={styles.containerTop}>
         <Back color={colors.secondary} onPress={() => null} />
 
         <Text style={[styles.textTop]}>New Arrival</Text>
@@ -66,7 +66,7 @@ function ListingScreen({ navigation }) {
         <TouchableOpacity onPress={() => null}>
           <Entypo name="list" size={28} color={colors.secondary} />
         </TouchableOpacity>
-      </View>
+      </View> */}
 
       <View style={styles.container}>
         <FlatList

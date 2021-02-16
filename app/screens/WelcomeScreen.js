@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   StyleSheet,
   Text,
@@ -9,13 +9,10 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Vibration,
-  Modal,
 } from "react-native";
 
 import MyButton from "../components/MyButton";
 import colors from "../config/colors";
-import RegisterScreen from "./RegisterScreen";
-import LoginScreen from "./LoginScreen";
 
 const onPressWelcome = () => {
   Alert.alert(
@@ -37,68 +34,59 @@ const onPressLogo = () => {
 };
 
 function WelcomeScreen({ navigation }) {
-  const [registerTapped, setResigterTapped] = useState(false);
-  const [signinTapped, setSigninTapped] = useState(false);
-
   return (
-    <>
-      <ImageBackground
-        blurRadius={2}
-        style={styles.container}
-        source={require("../assets/background1.jpg")}
+    <ImageBackground
+      blurRadius={2}
+      style={styles.container}
+      source={require("../assets/background1.jpg")}
+    >
+      <TouchableWithoutFeedback
+        onLongPress={onPressWelcome}
+        onPress={() => Vibration.vibrate(80)}
       >
-        <TouchableWithoutFeedback
-          onLongPress={onPressWelcome}
-          onPress={() => Vibration.vibrate(80)}
-        >
-          <View style={styles.textTopContainer}>
-            <Text style={[styles.text, { fontSize: 28 }]}>Welcome to</Text>
-            <Text style={[styles.text, { fontSize: 48, marginTop: -8 }]}>
-              Dawn
-            </Text>
-          </View>
-        </TouchableWithoutFeedback>
-
-        <TouchableOpacity
-          style={styles.logoContainer}
-          activeOpacity={0.5}
-          onPress={onPressLogo}
-        >
-          <Image
-            style={styles.logo}
-            source={require("../assets/welcomeLogo.png")}
-          />
-          <Text
-            style={[
-              styles.text,
-              { paddingVertical: 10, textTransform: "capitalize" },
-            ]}
-          >
-            Sell what you don't need
+        <View style={styles.textTopContainer}>
+          <Text style={[styles.text, { fontSize: 28 }]}>Welcome to</Text>
+          <Text style={[styles.text, { fontSize: 48, marginTop: -8 }]}>
+            Dawn
           </Text>
-        </TouchableOpacity>
-
-        <View style={styles.buttonView} accessibilityRole="button">
-          <MyButton
-            title="login"
-            color={colors.dodgerblue}
-            style={styles.bottonSignIn}
-            onPress={() => setSigninTapped(true)}
-          />
-
-          <MyButton
-            title="register"
-            color={colors.secondary}
-            style={styles.buttonRegister}
-            onPress={() => setResigterTapped(true)}
-          />
         </View>
-      </ImageBackground>
-      <Modal visible={registerTapped || signinTapped} animationType="slide">
-        {signinTapped && <LoginScreen onPressBack={setSigninTapped} />}
-        {registerTapped && <RegisterScreen onPressBack={setResigterTapped} />}
-      </Modal>
-    </>
+      </TouchableWithoutFeedback>
+
+      <TouchableOpacity
+        style={styles.logoContainer}
+        activeOpacity={0.5}
+        onPress={onPressLogo}
+      >
+        <Image
+          style={styles.logo}
+          source={require("../assets/welcomeLogo.png")}
+        />
+        <Text
+          style={[
+            styles.text,
+            { paddingVertical: 10, textTransform: "capitalize" },
+          ]}
+        >
+          Sell what you don't need
+        </Text>
+      </TouchableOpacity>
+
+      <View style={styles.buttonView} accessibilityRole="button">
+        <MyButton
+          title="login"
+          color={colors.dodgerblue}
+          style={styles.bottonSignIn}
+          onPress={() => navigation.navigate("Login")}
+        />
+
+        <MyButton
+          title="register"
+          color={colors.secondary}
+          style={styles.buttonRegister}
+          onPress={() => navigation.navigate("Register")}
+        />
+      </View>
+    </ImageBackground>
   );
 }
 

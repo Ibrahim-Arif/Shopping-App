@@ -1,8 +1,6 @@
 import React from "react";
-import { StyleSheet, View, Text, ScrollView } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { StyleSheet, View, Text, ScrollView, StatusBar } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import GestureRecognizer from "react-native-swipe-gestures";
 import * as yup from "yup";
 import { Formik } from "formik";
 
@@ -16,28 +14,15 @@ const valiadationRules = yup.object().shape({
   password: yup.string().required().min(6).max(16).label("Password"),
 });
 
-function LoginScreen({ onPressBack }) {
-  const navigation = useNavigation();
-  console.log(navigation);
-
-  const config = {
-    velocityThreshold: 0.8,
-    directionalOffsetThreshold: 80,
-  };
-
+function LoginScreen({ navigation }) {
   return (
-    <GestureRecognizer
-      style={[styles.container]}
-      config={config}
-      onSwipeDown={() => onPressBack(false)}
-    >
+    <>
       <View style={styles.topContainer}>
         <Ionicons
           name="arrow-back"
           size={24}
           color={colors.white}
-          style={{ marginLeft: 10 }}
-          onPress={() => onPressBack(false)}
+          onPress={() => navigation.navigate("Welcome")}
         />
         <Text style={styles.topText}>Login</Text>
       </View>
@@ -47,7 +32,6 @@ function LoginScreen({ onPressBack }) {
           initialValues={{ email: "", password: "" }}
           onSubmit={() => {
             navigation.navigate("Home");
-            onPressBack(false);
           }}
           validationSchema={valiadationRules}
         >
@@ -103,7 +87,7 @@ function LoginScreen({ onPressBack }) {
           </View>
         </View>
       </ScrollView>
-    </GestureRecognizer>
+    </>
   );
 }
 
@@ -115,15 +99,14 @@ const styles = StyleSheet.create({
   topText: {
     fontSize: 45,
     color: colors.white,
-    marginLeft: 20,
   },
   topContainer: {
+    paddingTop: StatusBar.currentHeight,
     height: 150,
     justifyContent: "space-between",
-    paddingVertical: 10,
+    padding: 10,
     backgroundColor: colors.dodgerblue,
   },
-
   orText: {
     fontSize: 20,
     color: colors.darkgrey,
