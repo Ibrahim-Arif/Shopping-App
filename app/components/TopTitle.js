@@ -4,10 +4,10 @@ import { StyleSheet, View, Text } from "react-native";
 import Icon from "./Icon";
 import Back from "./Back";
 
-function TopTitle({ title, color, rightIcon }) {
+function TopTitle({ title, color, rightIcon, onPressBack }) {
   return (
     <View style={styles.container}>
-      <Back color={color} onPress={() => null} />
+      <Back color={color} onPress={onPressBack} />
       <Text style={[styles.text, { color: color }]}>{title}</Text>
       <Icon color={color} name={rightIcon} size={26} iconSize={26} />
     </View>

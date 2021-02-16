@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  Image,
-  Text,
-  TouchableHighlight,
-} from "react-native";
+import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { Entypo } from "@expo/vector-icons";
 
@@ -21,11 +15,7 @@ function ListItem({
 }) {
   return (
     <Swipeable renderRightActions={renderRightActions}>
-      <TouchableHighlight
-        underlayColor={"#E7E9E9"}
-        onPress={onPress}
-        activeOpacity={0.2}
-      >
+      <TouchableOpacity onPress={onPress}>
         <View style={[styles.container, style]}>
           {image && <Image style={styles.image} source={image} />}
           {IconComponent}
@@ -54,7 +44,7 @@ function ListItem({
             />
           )}
         </View>
-      </TouchableHighlight>
+      </TouchableOpacity>
     </Swipeable>
   );
 }

@@ -113,7 +113,7 @@ const initialMessages = [
   },
 ];
 
-function MessageScreen(props) {
+function MessageScreen({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
   const [messages, setMessages] = useState(initialMessages);
 
@@ -129,7 +129,12 @@ function MessageScreen(props) {
 
   return (
     <Screen>
-      <TopTitle title="Messages" rightIcon="plus" color={colors.secondary} />
+      <TopTitle
+        title="Messages"
+        rightIcon="plus"
+        color={colors.secondary}
+        onPressBack={() => navigation.navigate("Account")}
+      />
 
       <View style={styles.containerList}>
         <FlatList

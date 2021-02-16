@@ -39,7 +39,7 @@ const FeedNavigtor = () => (
 
 const AccountStack = createStackNavigator();
 const AccountNavigator = () => (
-  <AccountStack.Navigator>
+  <AccountStack.Navigator screenOptions={{ headerShown: false }}>
     <AccountStack.Screen name="Account" component={AccountScreen} />
     <AccountStack.Screen name="Messages" component={MessageScreen} />
   </AccountStack.Navigator>
@@ -69,19 +69,6 @@ const TabNavigator = () => (
         title: "",
       }}
     />
-    {/* <Tabs.Screen
-        name="Messages"
-        component={MessageScreen}
-        options={{
-          tabBarIcon: ({ size, color }) => (
-            <MaterialCommunityIcons
-              name="android-messages"
-              size={size}
-              color={color}
-            />
-          ),
-        }}
-      /> */}
     <Tabs.Screen
       name="Account"
       component={AccountNavigator}
@@ -89,7 +76,6 @@ const TabNavigator = () => (
         tabBarIcon: ({ size, color }) => (
           <MaterialCommunityIcons name="account" size={size} color={color} />
         ),
-        headerShown: false,
       }}
     />
   </Tabs.Navigator>

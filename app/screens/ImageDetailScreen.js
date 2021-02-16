@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  Image,
-  TouchableOpacity,
-  SafeAreaView,
-} from "react-native";
+import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 
 import colors from "../config/colors";
