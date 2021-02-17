@@ -1,12 +1,12 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import ListingEditingScreen from "../screens/ListingEditingScreen";
 import FeedNavigtor from "./FeedNavigation";
 import colors from "../config/colors";
 import AccountNavigator from "./AccountNavigation";
+import Icon from "../components/Icon";
 
 const Tabs = createBottomTabNavigator();
 const AppNavigator = () => (
@@ -23,14 +23,18 @@ const AppNavigator = () => (
     <Tabs.Screen
       name="Add"
       component={ListingEditingScreen}
-      options={{
-        tabBarIcon: ({ size }) => (
-          <View style={styles.addIcon}>
-            <AntDesign name="pluscircle" size={size + 10} color="#fff" />
-          </View>
+      options={({ navigation }) => ({
+        tabBarButton: () => (
+          <Icon
+            name="plus-circle"
+            size={65}
+            backgroundColor={colors.primary}
+            onPress={() => navigation.navigate("Add")}
+            style={{ bottom: 15, borderColor: colors.white, borderWidth: 7 }}
+          />
         ),
         title: "",
-      }}
+      })}
     />
     <Tabs.Screen
       name="Account"
@@ -43,16 +47,5 @@ const AppNavigator = () => (
     />
   </Tabs.Navigator>
 );
-
-const styles = StyleSheet.create({
-  addIcon: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: colors.primary,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
 
 export default AppNavigator;

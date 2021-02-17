@@ -16,7 +16,7 @@ const FeedNavigtor = () => (
     <FeedStack.Screen
       name="ListingDetail"
       component={ListingDetailScreen}
-      options={{ headerShown: true }}
+      options={{ headerShown: true, headerTransparent: true, title: "" }}
     />
     <FeedStack.Screen name="ImageDetail" component={ImageDetailScreen} />
   </FeedStack.Navigator>
