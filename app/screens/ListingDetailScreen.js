@@ -11,12 +11,12 @@ function ListingDetailScreen({ route, navigation }) {
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        style={styles.containerPost}
+        style={styles.postContainer}
         onPress={() => navigation.navigate("ImageDetail", { image })}
       >
         <Image style={styles.image} source={image} />
 
-        <View style={styles.containerDetail}>
+        <View style={styles.detailContainer}>
           <Text style={styles.text}>{description}</Text>
           <Text style={[styles.text, { color: colors.secondary }]}>
             ${price}
@@ -35,26 +35,22 @@ function ListingDetailScreen({ route, navigation }) {
     </View>
   );
 }
-
+0;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.white,
   },
-
-  containerPost: {
-    height: "50%",
+  postContainer: {
+    flex: 0.6,
   },
-
-  containerDetail: {
-    paddingLeft: 14,
+  detailContainer: {
+    paddingLeft: 15,
+    paddingVertical: 5,
   },
-
   image: {
     width: "100%",
-    height: "80%",
+    flex: 1,
   },
-
   text: {
     fontSize: 20,
     fontFamily: "sans-serif",

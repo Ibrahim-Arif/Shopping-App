@@ -12,7 +12,7 @@ export default function ImageDetailScreen({ route, navigation }) {
     <Screen style={styles.container}>
       <View style={styles.iconView}>
         <TouchableOpacity
-          onPress={() => navigation.navigate("ListingDetail")}
+          onPress={() => navigation.goBack()}
           activeOpacity={0.5}
         >
           <Ionicons name="arrow-back-sharp" size={26} color="white" />
