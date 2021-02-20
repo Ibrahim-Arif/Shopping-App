@@ -11,9 +11,7 @@ function Card({ imageUrl, description, price, onPress }) {
         defaultSource={require("../assets/background1.jpg")}
       />
       {description && <Text style={styles.text}>{description}</Text>}
-      <Text style={[styles.text, { color: "#4ecdc4", marginBottom: 5 }]}>
-        {"$" + price}
-      </Text>
+      <Text style={[styles.text, styles.price]}>{"$" + price}</Text>
     </TouchableOpacity>
   );
 }
@@ -32,9 +30,13 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
-    fontWeight: "bold",
     paddingLeft: 20,
     paddingVertical: 2,
+  },
+  price: {
+    color: "#4ecdc4",
+    fontWeight: "bold",
+    marginBottom: 5,
   },
 });
 
