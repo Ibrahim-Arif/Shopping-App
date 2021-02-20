@@ -13,9 +13,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
-// initialParam={{
-//   title: "Ibrahim Arif",
-//   description: "some description here",
-//   image: require("./app/assets/user.jpg"),
-// }}

@@ -28,7 +28,7 @@
     "web": {
       "favicon": "./app/assets/favicon.png"
     },
-    "description": "Making this app by following Mosh Hamedani course. ",
+    "description": "Making this app by following Mosh Hamedani react-native course. ",
     "githubUrl": "https://github.com/Ibrahim-Arif/Shopping-App.git"
   }
 }
