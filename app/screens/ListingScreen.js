@@ -1,26 +1,21 @@
 import React, { useState, useEffect } from "react";
-import {
-  FlatList,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  Text,
-  RefreshControl,
-} from "react-native";
-import { Entypo } from "@expo/vector-icons";
+import { FlatList, StyleSheet, View, Text, RefreshControl } from "react-native";
 
 import Back from "../components/Back";
 import Card from "../components/Card";
 import colors from "../config/colors";
 import listingApi from "../api/Listing";
 import Screen from "../components/Screen";
+import MyButton from "../components/MyButton";
 
 function ListingScreen({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
   const [listings, setListings] = useState([]);
+  const [isError, setIsError] = useState(false);
 
   const loadListing = async () => {
     const response = await listingApi.getListings();
+    response.ok ? setIsError(false) : setIsError(true);
     setListings(response.data);
   };
 
@@ -38,13 +33,25 @@ function ListingScreen({ navigation }) {
     <Screen style={{ backgroundColor: colors.lightgrey }}>
       {/* <View style={styles.containerTop}>
         <Back color={colors.secondary} onPress={() => null} />
-
         <Text style={[styles.textTop]}>New Arrival</Text>
-
-        <TouchableOpacity onPress={() => null}>
-          <Entypo name="list" size={28} color={colors.secondary} />
-        </TouchableOpacity>
       </View> */}
+
+      {isError && (
+        <View
+          style={{
+            height: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text style={styles.errortext}>Error occured! While loading...</Text>
+          <MyButton
+            title="Retry"
+            color={colors.primary}
+            style={{ width: "90%" }}
+          />
+        </View>
+      )}
 
       <View style={styles.container}>
         <FlatList
@@ -89,6 +96,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 10,
     justifyContent: "space-between",
+  },
+  errortext: {
+    color: colors.danger,
+    marginLeft: 10,
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 10,
   },
   textTop: {
     color: colors.secondary,

@@ -20,6 +20,7 @@ const AppNavigator = () => (
         ),
       }}
     />
+
     <Tabs.Screen
       name="Add"
       component={ListingEditingScreen}
@@ -36,6 +37,7 @@ const AppNavigator = () => (
         title: "",
       })}
     />
+
     <Tabs.Screen
       name="Account"
       component={AccountNavigator}
