@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FlatList,
   StyleSheet,
@@ -9,50 +9,28 @@ import {
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 
-import Card from "../components/Card";
-import Screen from "../components/Screen";
-import colors from "../config/colors";
 import Back from "../components/Back";
-
-const items = [
-  {
-    id: 1,
-    img: require("../assets/jacket.jpg"),
-    description: "Red jacket for sale",
-    price: "250",
-  },
-  {
-    id: 2,
-    img: require("../assets/couch.jpg"),
-    description: "Comfortable couce with pillows!",
-    price: "700",
-  },
-  {
-    id: 5,
-    img: require("../assets/5.jpg"),
-    description: "Comfortable couce with pillows!",
-    price: "700",
-  },
-  {
-    id: 3,
-    img: require("../assets/1.webp"),
-    description: "Red jacket for sale",
-    price: "250",
-  },
-  {
-    id: 4,
-    img: require("../assets/3.jpg"),
-    description: "Comfortable couce with pillows!",
-    price: "700",
-  },
-];
+import Card from "../components/Card";
+import colors from "../config/colors";
+import listingApi from "../api/Listing";
+import Screen from "../components/Screen";
 
 function ListingScreen({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
+  const [listings, setListings] = useState([]);
+
+  const loadListing = async () => {
+    const response = await listingApi.getListings();
+    setListings(response.data);
+  };
+
+  useEffect(() => {
+    loadListing();
+  }, []);
 
   const onRefresh = () => {
     setRefreshing(true);
-    for (let i = 0; i < 10000000; i++);
+    loadListing();
     setRefreshing(false);
   };
 
@@ -70,16 +48,16 @@ function ListingScreen({ navigation }) {
 
       <View style={styles.container}>
         <FlatList
-          data={items}
+          data={listings}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <Card
-              img={item.img}
+              imageUrl={item.images[0].url}
               description={item.description}
               price={item.price}
               onPress={() =>
                 navigation.navigate("ListingDetail", {
-                  image: item.img,
+                  imageUrl: item.images[0].url,
                   description: item.description,
                   price: item.price,
                 })

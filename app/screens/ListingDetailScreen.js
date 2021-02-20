@@ -6,18 +6,18 @@ import ListItem from "../components/ListItem";
 import Seperator from "../components/Seperator";
 
 function ListingDetailScreen({ route, navigation }) {
-  const { image, description, price } = route.params;
+  const { imageUrl, description, price } = route.params;
 
   return (
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.postContainer}
-        onPress={() => navigation.navigate("ImageDetail", { image })}
+        onPress={() => navigation.navigate("ImageDetail", { imageUrl })}
       >
-        <Image style={styles.image} source={image} />
+        <Image style={styles.image} source={{ uri: imageUrl }} />
 
         <View style={styles.detailContainer}>
-          <Text style={styles.text}>{description}</Text>
+          {description && <Text style={styles.text}>{description}</Text>}
           <Text style={[styles.text, { color: colors.secondary }]}>
             ${price}
           </Text>

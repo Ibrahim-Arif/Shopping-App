@@ -6,7 +6,7 @@ import colors from "../config/colors";
 import Screen from "../components/Screen";
 
 export default function ImageDetailScreen({ route, navigation }) {
-  const { image } = route.params;
+  const { imageUrl } = route.params;
 
   return (
     <Screen style={styles.container}>
@@ -27,7 +27,11 @@ export default function ImageDetailScreen({ route, navigation }) {
         </TouchableOpacity>
       </View>
 
-      <Image style={styles.image} source={image} resizeMode="cover" />
+      <Image
+        style={styles.image}
+        source={{ uri: imageUrl }}
+        resizeMode="cover"
+      />
     </Screen>
   );
 }
