@@ -14,24 +14,13 @@ import colors from "../config/colors";
 import listingApi from "../api/Listing";
 import Screen from "../components/Screen";
 import MyButton from "../components/MyButton";
+import useApi from "../hooks/useApi";
 
 function ListingScreen({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
-  const [listings, setListings] = useState([]);
-  const [isError, setIsError] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const loadListing = async () => {
-    // console.log("inside load listing method");
-    setLoading(true);
-    const response = await listingApi.getListings();
-    setLoading(false);
-
-    if (!response.ok) return setIsError(true);
-
-    setIsError(false);
-    setListings(response.data);
-  };
+  const { data: listings, error, loading, request: loadListing } = useApi(
+    listingApi.getListings
+  );
 
   useEffect(() => {
     loadListing();
@@ -50,7 +39,7 @@ function ListingScreen({ navigation }) {
         <Text style={[styles.textTop]}>New Arrival</Text>
       </View> */}
 
-      {isError && (
+      {error && (
         <View
           style={{
             height: "100%",
