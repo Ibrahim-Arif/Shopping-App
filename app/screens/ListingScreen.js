@@ -40,13 +40,7 @@ function ListingScreen({ navigation }) {
       </View> */}
 
       {error && (
-        <View
-          style={{
-            height: "100%",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+        <View style={styles.loading}>
           <Text style={styles.errortext}>Error occured! While loading...</Text>
           <MyButton
             color={colors.primary}
@@ -117,6 +111,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 10,
+  },
+  loading: {
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
   },
   textTop: {
     color: colors.secondary,

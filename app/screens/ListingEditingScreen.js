@@ -3,13 +3,14 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import * as yup from "yup";
 import { Formik } from "formik";
 
-import Screen from "../components/Screen";
 import colors from "../config/colors";
-import FormTextInput from "../components/FormTextInput";
-import MyButton from "../components/MyButton";
-import TopTitle from "../components/TopTitle";
-import FormPicker from "../components/FormPicker";
 import FormImagePicker from "../components/FormImagePicker";
+import FormPicker from "../components/FormPicker";
+import FormTextInput from "../components/FormTextInput";
+import listingApi from "../api/Listing";
+import MyButton from "../components/MyButton";
+import Screen from "../components/Screen";
+import TopTitle from "../components/TopTitle";
 import useLocation from "../hooks/useLocation";
 
 const valiadationRules = yup.object().shape({
@@ -17,7 +18,7 @@ const valiadationRules = yup.object().shape({
   price: yup.string().required().min(1).label("Price"),
   category: yup.string().required().nullable().label("Category"),
   description: yup.string().label("Description"),
-  images: yup.array().min(1, "Please select atleast one image"),
+  images: yup.array().min(0, "Please select atleast one image"),
 });
 
 const categories = [
@@ -35,6 +36,13 @@ function ListingEditingScreen(props) {
   const location = useLocation();
   // console.log(location);
 
+  const handleSubmit = async (listing) => {
+    const result = await listingApi.addListing({ ...listing, location });
+
+    if (result.ok) alert("Success");
+    else alert(`Couldn't add listing: ` + result.problem);
+  };
+
   return (
     <Screen style={styles.container}>
       <TopTitle title="Item Detail" color={colors.primary} />
@@ -48,7 +56,7 @@ function ListingEditingScreen(props) {
             title: "",
             images: [],
           }}
-          onSubmit={(values) => console.log(values)}
+          onSubmit={handleSubmit}
           validationSchema={valiadationRules}
         >
           {({ handleSubmit }) => (
