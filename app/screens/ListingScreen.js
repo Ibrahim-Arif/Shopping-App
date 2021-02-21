@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { FlatList, StyleSheet, View, Text, RefreshControl } from "react-native";
+import {
+  FlatList,
+  StyleSheet,
+  View,
+  Text,
+  RefreshControl,
+  ActivityIndicator,
+} from "react-native";
 
 import Back from "../components/Back";
 import Card from "../components/Card";
@@ -12,10 +19,17 @@ function ListingScreen({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
   const [listings, setListings] = useState([]);
   const [isError, setIsError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const loadListing = async () => {
+    // console.log("inside load listing method");
+    setLoading(true);
     const response = await listingApi.getListings();
-    response.ok ? setIsError(false) : setIsError(true);
+    setLoading(false);
+
+    if (!response.ok) return setIsError(true);
+
+    setIsError(false);
     setListings(response.data);
   };
 
@@ -46,14 +60,25 @@ function ListingScreen({ navigation }) {
         >
           <Text style={styles.errortext}>Error occured! While loading...</Text>
           <MyButton
-            title="Retry"
             color={colors.primary}
+            title="Retry"
+            onPress={() => loadListing()}
             style={{ width: "90%" }}
           />
         </View>
       )}
 
       <View style={styles.container}>
+        {loading && (
+          <View style={{ height: "100%", justifyContent: "center" }}>
+            <ActivityIndicator
+              animating={true}
+              color={colors.primary}
+              size={50}
+            />
+          </View>
+        )}
+
         <FlatList
           data={listings}
           keyExtractor={(item) => item.id.toString()}
