@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import * as yup from "yup";
 import { Formik } from "formik";
@@ -12,13 +12,14 @@ import MyButton from "../components/MyButton";
 import Screen from "../components/Screen";
 import TopTitle from "../components/TopTitle";
 import useLocation from "../hooks/useLocation";
+import UploadScreen from "./UploadScreen";
 
 const valiadationRules = yup.object().shape({
   title: yup.string().required().min(1).label("Title"),
   price: yup.string().required().min(1).label("Price"),
   category: yup.string().required().nullable().label("Category"),
   description: yup.string().label("Description"),
-  images: yup.array().min(0, "Please select atleast one image"),
+  images: yup.array().min(1, "Please select atleast one image"),
 });
 
 const categories = [
@@ -33,18 +34,31 @@ const categories = [
 ];
 
 function ListingEditingScreen(props) {
+  const [uploadScreenVisible, setUploadScreenVisible] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
   const location = useLocation();
-  // console.log(location);
 
-  const handleSubmit = async (listing) => {
-    const result = await listingApi.addListing({ ...listing, location });
+  const handleSubmit = async (listing, { resetForm }) => {
+    setUploadProgress(0);
+    setUploadScreenVisible(true);
+    const result = await listingApi.addListing(
+      { ...listing, location },
+      (progress) => setUploadProgress(progress)
+    );
+    for (let i = 1; i < 10000000; i++);
+    setUploadScreenVisible(false);
 
-    if (result.ok) alert("Success");
-    else alert(`Couldn't add listing: ` + result.problem);
+    if (!result.ok) return alert(`Couldn't add listing: ` + result.problem);
+
+    resetForm();
+    alert("Success");
   };
 
   return (
     <Screen style={styles.container}>
+      {uploadScreenVisible && (
+        <UploadScreen progress={uploadProgress} visible={uploadScreenVisible} />
+      )}
       <TopTitle title="Item Detail" color={colors.primary} />
 
       <ScrollView>
