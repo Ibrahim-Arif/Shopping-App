@@ -68,6 +68,7 @@ function ListingScreen({ navigation }) {
           renderItem={({ item }) => (
             <Card
               imageUrl={item.images[0].url}
+              thumbnailUrl={item.images[0].thumbnailUrl}
               description={item.description ? item.description : item.title}
               price={item.price}
               onPress={() =>
