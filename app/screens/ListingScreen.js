@@ -8,13 +8,13 @@ import {
   ActivityIndicator,
 } from "react-native";
 
-import Back from "../components/Back";
 import Card from "../components/Card";
 import colors from "../config/colors";
 import listingApi from "../api/Listing";
 import Screen from "../components/Screen";
 import MyButton from "../components/MyButton";
 import useApi from "../hooks/useApi";
+import OfflineNotice from "../components/OfflineNotice";
 
 function ListingScreen({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
@@ -34,10 +34,7 @@ function ListingScreen({ navigation }) {
 
   return (
     <Screen style={{ backgroundColor: colors.lightgrey }}>
-      {/* <View style={styles.containerTop}>
-        <Back color={colors.secondary} onPress={() => null} />
-        <Text style={[styles.textTop]}>New Arrival</Text>
-      </View> */}
+      <OfflineNotice />
 
       {error && (
         <View style={styles.loading}>
@@ -99,13 +96,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     flex: 1,
   },
-  containerTop: {
-    alignItems: "flex-end",
-    flexDirection: "row",
-    marginBottom: 10,
-    paddingHorizontal: 10,
-    justifyContent: "space-between",
-  },
   errortext: {
     color: colors.danger,
     marginLeft: 10,
@@ -117,12 +107,6 @@ const styles = StyleSheet.create({
     height: "100%",
     justifyContent: "center",
     alignItems: "center",
-  },
-  textTop: {
-    color: colors.secondary,
-    fontFamily: "sans-serif",
-    fontSize: 24,
-    fontWeight: "bold",
   },
 });
 
