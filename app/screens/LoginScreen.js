@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, Text, ScrollView, StatusBar } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import * as yup from "yup";
@@ -8,6 +8,7 @@ import colors from "../config/colors";
 import MyButton from "../components/MyButton";
 import Icon from "../components/Icon";
 import FormTextInput from "../components/FormTextInput";
+import ErrorText from "../components/ErrorText";
 
 const valiadationRules = yup.object().shape({
   email: yup.string().required().email().label("Email"),
@@ -15,6 +16,14 @@ const valiadationRules = yup.object().shape({
 });
 
 function LoginScreen({ navigation }) {
+  const [loginFailed, setLoginFailed] = useState(false);
+
+  const handleSubmit = ({ email, password }) => {
+    email === "ibrahim@domain.com" && password === "123456"
+      ? navigation.navigate("home")
+      : setLoginFailed(true);
+  };
+
   return (
     <>
       <View style={styles.topContainer}>
@@ -30,13 +39,15 @@ function LoginScreen({ navigation }) {
       <ScrollView>
         <Formik
           initialValues={{ email: "", password: "" }}
-          onSubmit={() => {
-            navigation.navigate("Home");
-          }}
+          onSubmit={handleSubmit}
           validationSchema={valiadationRules}
         >
           {({ handleSubmit }) => (
             <View style={styles.textInputContainer}>
+              {loginFailed && (
+                <ErrorText title="Invalid usename or password." />
+              )}
+
               <FormTextInput
                 title="email"
                 iconName="email"
