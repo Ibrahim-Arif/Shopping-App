@@ -21,8 +21,8 @@ function LoginScreen({ navigation }) {
   const { setUser } = useUser();
 
   const handleSubmit = ({ email, password }) => {
-    users[email] === password
-      ? setUser({ email, password })
+    users[email].password === password
+      ? setUser(users[email])
       : setLoginFailed(true);
   };
 

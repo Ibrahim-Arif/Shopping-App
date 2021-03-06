@@ -5,13 +5,12 @@ import colors from "../config/colors";
 import ListItem from "../components/ListItem";
 import Icon from "../components/Icon";
 import Seperator from "../components/Seperator";
+import { useUser } from "../components/userContext";
 
 function AccountScreen({ navigation }) {
-  // console.log(props);
-  // const { title, description, image } = route.params;
-  const title = "Ibrahim";
-  const description = "Some description here";
-  const image = require("../assets/user.jpg");
+  const {
+    user: { username, email, image },
+  } = useUser();
 
   const menuItems = [
     {
@@ -51,7 +50,7 @@ function AccountScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.userDetailContainer}>
-        <ListItem title={title} description={description} image={image} />
+        <ListItem title={username} description={email} image={image} />
       </View>
 
       <FlatList
