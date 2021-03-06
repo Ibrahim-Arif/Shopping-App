@@ -10,6 +10,7 @@ import { useUser } from "../components/userContext";
 function AccountScreen({ navigation }) {
   const {
     user: { username, email, image },
+    setUser,
   } = useUser();
 
   const menuItems = [
@@ -72,7 +73,7 @@ function AccountScreen({ navigation }) {
         ListFooterComponent={() => (
           <ListItem
             title="Log Out"
-            onPress={() => null}
+            onPress={() => setUser("")}
             IconComponent={
               <Icon name="logout" backgroundColor={colors.yellow} />
             }
