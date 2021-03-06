@@ -8,7 +8,8 @@ import colors from "../config/colors";
 import MyButton from "../components/MyButton";
 import Icon from "../components/Icon";
 import FormTextInput from "../components/FormTextInput";
-import ErrorText from "../components/ErrorText";
+import { useUser } from "../components/userContext";
+import users from "../config/users";
 
 const valiadationRules = yup.object().shape({
   email: yup.string().required().email().label("Email"),
@@ -17,10 +18,11 @@ const valiadationRules = yup.object().shape({
 
 function LoginScreen({ navigation }) {
   const [loginFailed, setLoginFailed] = useState(false);
+  const { setUser } = useUser();
 
   const handleSubmit = ({ email, password }) => {
-    email === "ibrahim@domain.com" && password === "123456"
-      ? navigation.navigate("home")
+    users[email] === password
+      ? setUser({ email, password })
       : setLoginFailed(true);
   };
 
@@ -45,7 +47,9 @@ function LoginScreen({ navigation }) {
           {({ handleSubmit }) => (
             <View style={styles.textInputContainer}>
               {loginFailed && (
-                <ErrorText title="Invalid usename or password." />
+                <Text style={styles.errortext}>
+                  {"Invalid usename or password."}
+                </Text>
               )}
 
               <FormTextInput
@@ -106,6 +110,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.white,
+  },
+  errortext: {
+    color: colors.danger,
+    fontSize: 16,
   },
   topText: {
     fontSize: 45,
