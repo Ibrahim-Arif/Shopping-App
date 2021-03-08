@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
+import AppLoading from "expo-app-loading";
+
 import NavigationTheme from "./app/navigations/NavigationTheme";
 import WelcomeNavigator from "./app/navigations/WelcomeNavigator";
 import AppNavigator from "./app/navigations/AppNavigation";
 import { StateProvider } from "./app/components/userContext";
 import secureStorage from "./app/utilities/secureStorage";
-import users from "./app/config/users";
 
 export default function App() {
   const [user, setUser] = useState();
+  const [isReady, setIsReady] = useState(false);
 
   const authUser = async () => {
     const result = await secureStorage.readUser();
@@ -16,9 +18,15 @@ export default function App() {
     setUser(JSON.parse(result));
   };
 
-  useEffect(() => {
-    authUser();
-  }, []);
+  if (!isReady) {
+    return (
+      <AppLoading
+        startAsync={authUser}
+        onFinish={() => setIsReady(true)}
+        onError={console.log('')}
+      />
+    );
+  }
 
   return (
     <StateProvider user={user} setUser={setUser}>
