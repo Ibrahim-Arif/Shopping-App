@@ -10,6 +10,7 @@ import Icon from "../components/Icon";
 import FormTextInput from "../components/FormTextInput";
 import { useUser } from "../components/userContext";
 import users from "../config/users";
+import secureStorage from "../utilities/secureStorage";
 
 const valiadationRules = yup.object().shape({
   email: yup.string().required().email().label("Email"),
@@ -21,9 +22,12 @@ function LoginScreen({ navigation }) {
   const { setUser } = useUser();
 
   const handleSubmit = ({ email, password }) => {
-    users[email].password === password
-      ? setUser(users[email])
-      : setLoginFailed(true);
+    if (users[email].password === password) {
+      setUser(users[email]);
+      secureStorage.storeUser(users[email]);
+    } else {
+      setLoginFailed(true);
+    }
   };
 
   return (

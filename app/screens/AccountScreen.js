@@ -6,6 +6,7 @@ import ListItem from "../components/ListItem";
 import Icon from "../components/Icon";
 import Seperator from "../components/Seperator";
 import { useUser } from "../components/userContext";
+import secureStorage from "../utilities/secureStorage";
 
 function AccountScreen({ navigation }) {
   const {
@@ -48,6 +49,11 @@ function AccountScreen({ navigation }) {
     },
   ];
 
+  const handleLogout = () => {
+    setUser(null);
+    secureStorage.removeUser();
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.userDetailContainer}>
@@ -73,7 +79,7 @@ function AccountScreen({ navigation }) {
         ListFooterComponent={() => (
           <ListItem
             title="Log Out"
-            onPress={() => setUser("")}
+            onPress={handleLogout}
             IconComponent={
               <Icon name="logout" backgroundColor={colors.yellow} />
             }
