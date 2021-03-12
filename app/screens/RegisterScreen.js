@@ -8,7 +8,7 @@ import colors from "../config/colors";
 import MyButton from "../components/MyButton";
 import Icon from "../components/Icon";
 import FormTextInput from "../components/FormTextInput";
-import users from "../config/users";
+import { useUser } from "../components/userContext";
 
 const valiadationRules = yup.object().shape({
   username: yup.string().required().label("Username"),
@@ -17,17 +17,11 @@ const valiadationRules = yup.object().shape({
 });
 
 function RegisterScreen({ navigation }) {
-  // const handleSubmit = ({ username, email, password }) => {
-  //   users = {
-  //     ...users,
-  //     email: {
-  //       username: username,
-  //       email: email,
-  //       password: password,
-  //       image: require("../assets/jacket.jpg"),
-  //     },
-  //   };
-  // };
+  const { register } = useUser();
+
+  const handleSubmit = ({ username, email, password }) => {
+    register(username, email, password);
+  };
 
   return (
     <>
@@ -44,7 +38,7 @@ function RegisterScreen({ navigation }) {
       <ScrollView>
         <Formik
           initialValues={{ username: "", email: "", password: "" }}
-          onSubmit={() => null}
+          onSubmit={handleSubmit}
           validationSchema={valiadationRules}
         >
           {({ handleSubmit }) => (
