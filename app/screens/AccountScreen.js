@@ -6,12 +6,11 @@ import ListItem from "../components/ListItem";
 import Icon from "../components/Icon";
 import Seperator from "../components/Seperator";
 import { useUser } from "../components/userContext";
-import secureStorage from "../utilities/secureStorage";
 
 function AccountScreen({ navigation }) {
   const {
     user: { username, email, image },
-    setUser,
+    logOut,
   } = useUser();
 
   const menuItems = [
@@ -49,11 +48,6 @@ function AccountScreen({ navigation }) {
     },
   ];
 
-  const handleLogout = () => {
-    setUser(null);
-    secureStorage.removeUser();
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.userDetailContainer}>
@@ -79,7 +73,7 @@ function AccountScreen({ navigation }) {
         ListFooterComponent={() => (
           <ListItem
             title="Log Out"
-            onPress={handleLogout}
+            onPress={() => logOut()}
             IconComponent={
               <Icon name="logout" backgroundColor={colors.yellow} />
             }

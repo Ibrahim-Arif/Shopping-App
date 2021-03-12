@@ -23,7 +23,7 @@ export default function App() {
       <AppLoading
         startAsync={authUser}
         onFinish={() => setIsReady(true)}
-        onError={console.log('')}
+        onError={console.log("")}
       />
     );
   }

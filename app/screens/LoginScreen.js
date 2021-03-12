@@ -9,8 +9,6 @@ import MyButton from "../components/MyButton";
 import Icon from "../components/Icon";
 import FormTextInput from "../components/FormTextInput";
 import { useUser } from "../components/userContext";
-import users from "../config/users";
-import secureStorage from "../utilities/secureStorage";
 
 const valiadationRules = yup.object().shape({
   email: yup.string().required().email().label("Email"),
@@ -19,15 +17,10 @@ const valiadationRules = yup.object().shape({
 
 function LoginScreen({ navigation }) {
   const [loginFailed, setLoginFailed] = useState(false);
-  const { setUser } = useUser();
+  const { logIn } = useUser();
 
   const handleSubmit = ({ email, password }) => {
-    if (users[email].password === password) {
-      setUser(users[email]);
-      secureStorage.storeUser(users[email]);
-    } else {
-      setLoginFailed(true);
-    }
+    if (!logIn(email, password)) setLoginFailed(true);
   };
 
   return (
