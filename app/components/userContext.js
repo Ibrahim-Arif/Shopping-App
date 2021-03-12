@@ -8,17 +8,18 @@ const useUser = () => {
   const { user, setUser } = useContext(UserContext);
   const image = require("../assets/user.jpg");
 
-  const logIn = async (email, password) => {
+  const logIn = async (email, password, setLoginFailed) => {
     try {
       const value = await AsyncStorage.getItem(email);
       const user = JSON.parse(value);
+      if (!user) setLoginFailed(true);
 
       if (user.password === password) {
         setUser(user);
         secureStorage.storeUser(user);
-        return true;
+        return;
       }
-      return false;
+      setLoginFailed(true);
     } catch (error) {
       console.log(error);
     }
@@ -36,7 +37,7 @@ const useUser = () => {
 
       alert("Registered successfully. ");
     } catch (error) {
-      console.log("Error: " + error);
+      console.log(error);
     }
   };
 

@@ -20,7 +20,7 @@ function LoginScreen({ navigation }) {
   const { logIn } = useUser();
 
   const handleSubmit = ({ email, password }) => {
-    if (!logIn(email, password)) setLoginFailed(true);
+    logIn(email, password, setLoginFailed);
   };
 
   return (
