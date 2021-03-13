@@ -34,8 +34,8 @@ const useUser = () => {
         email,
         JSON.stringify({ username, email, password, image })
       );
-
-      alert("Registered successfully. ");
+      setUser({ username, email, password, image });
+      secureStorage.storeUser({ username, email, password, image });
     } catch (error) {
       console.log(error);
     }
