@@ -9,8 +9,8 @@ import { StateProvider } from "./app/components/userContext";
 import secureStorage from "./app/utilities/secureStorage";
 
 export default function App() {
-  const [user, setUser] = useState();
   const [isReady, setIsReady] = useState(false);
+  const [user, setUser] = useState();
 
   const authUser = async () => {
     const result = await secureStorage.readUser();

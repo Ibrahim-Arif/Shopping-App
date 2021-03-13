@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, Text, ScrollView, StatusBar } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import * as yup from "yup";
@@ -9,6 +9,7 @@ import MyButton from "../components/MyButton";
 import Icon from "../components/Icon";
 import FormTextInput from "../components/FormTextInput";
 import { useUser } from "../components/userContext";
+import LoadingScreen from "./LoadingScreen";
 
 const valiadationRules = yup.object().shape({
   username: yup.string().required().label("Username"),
@@ -18,13 +19,17 @@ const valiadationRules = yup.object().shape({
 
 function RegisterScreen({ navigation }) {
   const { register } = useUser();
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = ({ username, email, password }) => {
+    setLoading(true);
     register(username, email, password);
+    setLoading(false);
   };
 
   return (
     <>
+      {loading && <LoadingScreen color={colors.secondary} />}
       <View style={styles.topContainer}>
         <Ionicons
           name="arrow-back"

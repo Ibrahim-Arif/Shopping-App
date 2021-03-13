@@ -15,8 +15,8 @@ const useUser = () => {
       if (!user) setLoginFailed(true);
 
       if (user.password === password) {
-        setUser(user);
         secureStorage.storeUser(user);
+        setUser(user);
         return;
       }
       setLoginFailed(true);
@@ -34,16 +34,17 @@ const useUser = () => {
         email,
         JSON.stringify({ username, email, password, image })
       );
-      setUser({ username, email, password, image });
+
       secureStorage.storeUser({ username, email, password, image });
+      setUser({ username, email, password, image });
     } catch (error) {
       console.log(error);
     }
   };
 
   const logOut = () => {
-    setUser(null);
     secureStorage.removeUser();
+    setUser(null);
   };
 
   return { user, logIn, logOut, register, setUser };
