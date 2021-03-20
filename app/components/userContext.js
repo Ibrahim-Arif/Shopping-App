@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useContext } from "react";
 import secureStorage from "../utilities/secureStorage";
+import firebase from "firebase";
 
 const UserContext = React.createContext();
 
@@ -10,16 +11,17 @@ const useUser = () => {
 
   const logIn = async (email, password, setLoginFailed) => {
     try {
-      const value = await AsyncStorage.getItem(email);
-      const user = JSON.parse(value);
-      if (!user) setLoginFailed(true);
+      setLoginFailed(false);
+      const user = { email, password, username: "Sample User", image };
 
-      if (user.password === password) {
-        secureStorage.storeUser(user);
-        setUser(user);
-        return;
-      }
-      setLoginFailed(true);
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(() => {
+          secureStorage.storeUser(user);
+          setUser(user);
+        })
+        .catch(() => setLoginFailed(true));
     } catch (error) {
       console.log(error);
     }
@@ -27,16 +29,14 @@ const useUser = () => {
 
   const register = async (username, email, password) => {
     try {
-      const value = await AsyncStorage.getItem(email);
-      if (value) return alert("Email already exists.");
-
-      await AsyncStorage.setItem(
-        email,
-        JSON.stringify({ username, email, password, image })
-      );
-
-      secureStorage.storeUser({ username, email, password, image });
-      setUser({ username, email, password, image });
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then(() => {
+          secureStorage.storeUser({ username, email, password, image });
+          setUser({ username, email, password, image });
+        })
+        .catch(() => alert("Something went wrong while Creating account!"));
     } catch (error) {
       console.log(error);
     }
