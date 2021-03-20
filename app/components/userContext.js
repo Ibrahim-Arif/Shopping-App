@@ -1,4 +1,3 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useContext } from "react";
 import secureStorage from "../utilities/secureStorage";
 import firebase from "firebase";
@@ -27,8 +26,9 @@ const useUser = () => {
     }
   };
 
-  const register = async (username, email, password) => {
+  const register = async (username, email, password, setRegistrationFailed) => {
     try {
+      setRegistrationFailed(false);
       firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
@@ -36,7 +36,7 @@ const useUser = () => {
           secureStorage.storeUser({ username, email, password, image });
           setUser({ username, email, password, image });
         })
-        .catch(() => alert("Something went wrong while Creating account!"));
+        .catch(() => setRegistrationFailed(true));
     } catch (error) {
       console.log(error);
     }

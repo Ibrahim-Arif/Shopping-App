@@ -20,10 +20,11 @@ const valiadationRules = yup.object().shape({
 function RegisterScreen({ navigation }) {
   const { register } = useUser();
   const [loading, setLoading] = useState(false);
+  const [registrationFailed, setRegistrationFailed] = useState(false);
 
   const handleSubmit = ({ username, email, password }) => {
     setLoading(true);
-    register(username, email, password);
+    register(username, email, password, setRegistrationFailed);
     setLoading(false);
   };
 
@@ -48,6 +49,10 @@ function RegisterScreen({ navigation }) {
         >
           {({ handleSubmit }) => (
             <View style={styles.textInputContainer}>
+              {registrationFailed && (
+                <Text style={styles.errortext}>{"Email Already Exists."}</Text>
+              )}
+
               <FormTextInput
                 title="username"
                 iconName="account"
@@ -113,6 +118,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.white,
   },
+  errortext: {
+    color: colors.danger,
+    fontSize: 16,
+  },
   topText: {
     fontSize: 45,
     color: colors.white,
@@ -124,7 +133,6 @@ const styles = StyleSheet.create({
     paddingTop: StatusBar.currentHeight,
     backgroundColor: colors.secondary,
   },
-
   orText: {
     fontSize: 20,
     color: colors.darkgrey,
