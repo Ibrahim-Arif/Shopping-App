@@ -26,6 +26,22 @@ const useUser = () => {
     }
   };
 
+  const createUser = async (username, email) => {
+    try {
+      const { uid } = firebase.auth().currentUser;
+
+      firebase.database().ref(`/users`).child(uid).set({
+        username,
+        email,
+        image: "../assets/user.jpg",
+        messages: {},
+        listings: {},
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const register = async (username, email, password, setRegistrationFailed) => {
     try {
       setRegistrationFailed(false);
@@ -33,6 +49,8 @@ const useUser = () => {
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then(() => {
+          createUser(username, email);
+
           secureStorage.storeUser({ username, email, password, image });
           setUser({ username, email, password, image });
         })

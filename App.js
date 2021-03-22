@@ -17,6 +17,7 @@ export default function App() {
     firebase.initializeApp({
       apiKey: "AIzaSyC2EAH4qe28zaaZQ6AWq8jW0mdSafYyids",
       authDomain: "dawn-bcee8.firebaseapp.com",
+      databaseURL: "https://dawn-bcee8-default-rtdb.firebaseio.com",
       projectId: "dawn-bcee8",
       storageBucket: "dawn-bcee8.appspot.com",
       messagingSenderId: "816524272637",
