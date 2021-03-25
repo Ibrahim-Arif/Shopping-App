@@ -28,15 +28,18 @@ const useUser = () => {
 
   const createUser = async (username, email) => {
     try {
-      const { uid } = firebase.auth().currentUser;
+      const uid = firebase.auth().currentUser.uid;
 
-      firebase.database().ref(`/users`).child(uid).set({
-        username,
-        email,
-        image: "../assets/user.jpg",
-        messages: {},
-        listings: {},
-      });
+      firebase
+        .database()
+        .ref(`/users/` + uid)
+        .set({
+          username,
+          email,
+          image: "../assets/user.jpg",
+          messages: {},
+          listings: {},
+        });
     } catch (error) {
       console.log(error);
     }

@@ -34,11 +34,10 @@ export default function App() {
     if (!result) return;
 
     const user = JSON.parse(result);
+    setUser(user);
+
     initFirebase();
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(user.email, user.password)
-      .then(() => setUser(user));
+    firebase.auth().signInWithEmailAndPassword(user.email, user.password);
   };
 
   if (!isReady) {

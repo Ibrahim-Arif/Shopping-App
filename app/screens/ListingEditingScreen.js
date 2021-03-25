@@ -45,10 +45,9 @@ function ListingEditingScreen(props) {
       { ...listing, location },
       (progress) => setUploadProgress(progress)
     );
-    for (let i = 1; i < 10000000; i++);
     setUploadScreenVisible(false);
 
-    if (!result.ok) return alert(`Couldn't add listing: ` + result.problem);
+    // if (!result.ok) return alert(`Couldn't add listing: ` + result.problem);
 
     resetForm();
     alert("Success");
