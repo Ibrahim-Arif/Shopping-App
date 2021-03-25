@@ -6,36 +6,28 @@ const endpoint = "/listings";
 const getListings = () => client.get(endpoint);
 
 const addListing = (listing, onUploadProgress) => {
-  // const data = new FormData();
-  console.log("inside add listing");
-  const { title, price, category, description } = listing;
   const uid = firebase.auth().currentUser.uid;
 
+  const { title, price, category, description } = listing;
   const data = { title, price, category, description, uid };
 
-  let locJson;
+  let locJSON;
   if (listing.location) {
-    locJson = JSON.stringify(listing.location);
-    data = { ...data, locJson };
+    locJSON = JSON.stringify(listing.location);
+    data = { ...data, locJSON };
   }
-  console.log(data);
 
   try {
-    // console.log(firebase.database().ref().child("listings").push().key);
-    firebase.database().ref().child("listings").push(data);
-    // firebase.database().ref(`/users/heheheh`).set({
-    //   username: "heheh",
-    //   email: "hehehe",
-    //   image: "../assets/user.jpg",
-    //   messages: {},
-    //   listings: {},
-    // });
-  } catch (error) {}
+    const newPostKey = firebase.database().ref().child("listings").push().key;
 
-  // data.append("title", listing.title);
-  // data.append("price", listing.price);
-  // data.append("category", listing.category);
-  // data.append("description", listing.description);
+    let updates = {};
+    updates["/listings/" + newPostKey] = data;
+    updates["/users/" + uid + "/listings/" + newPostKey] = data;
+
+    firebase.database().ref().update(updates);
+  } catch (error) {
+    console.log(error);
+  }
 
   // listing.images.forEach((image, index) =>
   //   data.append("images", {
@@ -44,13 +36,7 @@ const addListing = (listing, onUploadProgress) => {
   //     uri: image,
   //   })
   // );
-
-  // if (listing.location)
-  //   data.append("location", JSON.stringify(listing.location));
-
-  // return client.post(endpoint, data, {
-  //   onUploadProgress: ({ loaded, total }) => onUploadProgress(loaded / total),
-  // });
+  return true;
 };
 
 export default {

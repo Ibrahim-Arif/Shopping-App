@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View, LogBox } from "react-native";
 import * as yup from "yup";
 import { Formik } from "formik";
 
@@ -19,7 +19,7 @@ const valiadationRules = yup.object().shape({
   price: yup.string().required().min(1).label("Price"),
   category: yup.string().required().nullable().label("Category"),
   description: yup.string().label("Description"),
-  images: yup.array().min(1, "Please select atleast one image"),
+  // images: yup.array().min(1, "Please select atleast one image"),
 });
 
 const categories = [
@@ -38,16 +38,18 @@ function ListingEditingScreen(props) {
   const [uploadProgress, setUploadProgress] = useState(0);
   const location = useLocation();
 
-  const handleSubmit = async (listing, { resetForm }) => {
+  LogBox.ignoreLogs(["Setting a timer for a long period of time,"]);
+
+  const handleSubmit = (listing, { resetForm }) => {
     setUploadProgress(0);
+
     setUploadScreenVisible(true);
-    const result = await listingApi.addListing(
-      { ...listing, location },
-      (progress) => setUploadProgress(progress)
+    const result = listingApi.addListing({ ...listing, location }, (progress) =>
+      setUploadProgress(progress)
     );
     setUploadScreenVisible(false);
 
-    // if (!result.ok) return alert(`Couldn't add listing: ` + result.problem);
+    if (!result) return alert(`Couldn't add listing: ` + result.problem);
 
     resetForm();
     alert("Success");
