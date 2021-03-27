@@ -9,21 +9,28 @@ import MyButton from "../components/MyButton";
 import useApi from "../hooks/useApi";
 import OfflineNotice from "../components/OfflineNotice";
 import LoadingScreen from "../screens/LoadingScreen";
+import Listing from "../api/Listing";
 
 function ListingScreen({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
-  const { data: listings, error, loading, request: loadListing } = useApi(
-    listingApi.getListings
-  );
+  // const { data: listings, error, loading, request: loadListing } = useApi(
+  //   listingApi.getListings
+  // );
+  const error = false;
+  const loading = false;
+
+  const [listings, setListings] = useState([]);
 
   useEffect(() => {
-    loadListing();
+    // loadListing();
+    Listing.getListings(listings, setListings);
   }, []);
 
   const onRefresh = () => {
     setRefreshing(true);
     // loadListing();
-    listingApi.getListings1();
+    // listingApi.getListings1();
+    Listing.getListings(listings, setListings);
     setRefreshing(false);
   };
   return (
@@ -49,16 +56,16 @@ function ListingScreen({ navigation }) {
         <View style={styles.container}>
           <FlatList
             data={listings}
-            keyExtractor={(item) => item.id.toString()}
+            keyExtractor={(item) => item.key}
             renderItem={({ item }) => (
               <Card
-                imageUrl={item.images[0].url}
-                thumbnailUrl={item.images[0].thumbnailUrl}
+                // imageUrl={item.images[0].url}
+                // thumbnailUrl={item.images[0].thumbnailUrl}
                 description={item.description ? item.description : item.title}
                 price={item.price}
                 onPress={() =>
                   navigation.navigate("ListingDetail", {
-                    imageUrl: item.images[0].url,
+                    // imageUrl: item.images[0].url,
                     description: item.description
                       ? item.description
                       : item.title,

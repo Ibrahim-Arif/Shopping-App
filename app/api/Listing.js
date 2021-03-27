@@ -1,6 +1,7 @@
 import firebase from "firebase";
 import client from "./Client";
 import _ from "lodash";
+import { ObjectSchema } from "yup";
 
 const endpoint = "/listings";
 
@@ -21,26 +22,76 @@ const uriToBlob = (uri) => {
   });
 };
 
-const getListings = () => client.get(endpoint);
+const getListings1 = () => client.get(endpoint);
 
-const getListings1 = () => {
-  let data = {};
+const getListings = (listings, setListings) => {
+  let dataObj = {};
 
   firebase
     .database()
     .ref("/listings")
     .on("value", (snapshot) => {
-      data = snapshot.val();
-      console.log(snapshot.val());
+      dataObj = snapshot.val();
+      // console.log(snapshot.val());
     });
 
-  let dataArray = _.map(data, (val, uid) => {
-    return { ...val, uid };
+  let data = [];
+  // firebase
+  // .storage()
+  // .ref("/listings/-MWnb1TZ2vkVvR5K0Pv0/image0.png")
+  // .getDownloadURL()
+  // .then((uri) => {
+  //   console.log(uri);
+  // });
+
+  // data = _.map(dataObj, (val, key) => {
+  //   return { ...val, key };
+  // });
+
+  // let keys = [];
+
+  // data = _.map(dataObj, (val, key) => {
+  //   // keys.push(key);
+  //   return { ...val, key };
+  // });
+
+  _.forEach(dataObj, (val, key) => {
+    let obj = { ...val, key };
+    firebase
+      .storage()
+      .ref("/listings/" + key + "/image0.png")
+      .getDownloadURL()
+      .then((uri) => {
+        console.log(uri);
+        obj = { ...obj, images: [{ url: uri }] };
+      });
+
+    data = [...data, obj];
+    setListings(data);
+    console.log(listings);
   });
 
-  console.log(dataArray);
+  // setListings(data);
 
-  // return { ok: true, data };
+  // let finaldata = [];
+
+  // let i = 0;
+  // keys.forEach((key) => {
+  //   firebase
+  //     .storage()
+  //     .ref("/listings/" + key + "/image0.png")
+  //     .getDownloadURL()
+  //     .then((uri) => {
+  //       // finaldata.push({ ...data[i], images: [{ url: uri }] });
+  //       setListings([...listings, { ...data[i], images: [{ url: uri }] }]);
+  //       // console.log({ ...data[i], images: [{ url: uri }] });
+  //       // obj = { ...obj, images: [{ url: uri }] };
+  //     });
+  //   i++;
+  // });
+  // console.log(finaldata);
+
+  // return { ok: true, data: finaldata };
 
   //   //      data should be an array of these objects
   //   // {

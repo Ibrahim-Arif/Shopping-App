@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { LogBox } from "react-native";
 import AppLoading from "expo-app-loading";
 import firebase from "firebase";
+import _ from "lodash";
 
 import NavigationTheme from "./app/navigations/NavigationTheme";
 import WelcomeNavigator from "./app/navigations/WelcomeNavigator";
