@@ -1,8 +1,29 @@
 import firebase from "firebase";
-import { Image } from "react-native";
 import client from "./Client";
 
 const endpoint = "/listings";
+
+const uriToBlob = (uri) => {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+
+    xhr.onload = function () {
+      // return the blob
+      resolve(xhr.response);
+    };
+
+    xhr.onerror = function () {
+      // something went wrong
+      reject(new Error("uriToBlob failed"));
+    };
+
+    // this helps us get a blob
+    xhr.responseType = "blob";
+
+    xhr.open("GET", uri, true);
+    xhr.send(null);
+  });
+};
 
 const getListings = () => client.get(endpoint);
 
@@ -13,10 +34,10 @@ const addListing = (listing, onUploadProgress) => {
   const { title, price, category, description, images } = listing;
   let data = { title, price, category, description, uid };
 
-  let locJSON;
+  let location;
   if (listing.location) {
-    locJSON = JSON.stringify(listing.location);
-    data = { ...data, locJSON };
+    location = JSON.stringify(listing.location);
+    data = { ...data, location };
   }
 
   try {
@@ -33,17 +54,20 @@ const addListing = (listing, onUploadProgress) => {
       .ref("listings/" + newPostKey + "/");
 
     images.forEach(async (image, index) => {
-      const fileName = image.substring(image.lastIndexOf("/") + 1);
-      const fileType = fileName.substring(fileName.lastIndexOf(".") + 1);
-      let blob = new Blob([image], { type: "image/" + fileType });
+      // const fileName = image.substring(image.lastIndexOf("/") + 1);
+      const fileType = image.substring(image.lastIndexOf(".") + 1);
 
-      const task = newPostImagesDir
-        .child("image" + index + "." + fileType)
-        .put(blob);
+      uriToBlob(image).then((blob) => {
+        const task = newPostImagesDir
+          .child("image" + index + "." + fileType)
+          .put(blob, {
+            contentType: "image/" + fileType,
+          });
 
-      task.on("state_changed", ({ bytesTransferred, totalBytes }) =>
-        onUploadProgress(bytesTransferred / totalBytes)
-      );
+        task.on("state_changed", ({ bytesTransferred, totalBytes }) =>
+          onUploadProgress(bytesTransferred / totalBytes)
+        );
+      });
     });
   } catch (error) {
     console.log(error);

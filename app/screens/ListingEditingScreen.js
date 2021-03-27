@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ScrollView, StyleSheet, View, LogBox } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import * as yup from "yup";
 import { Formik } from "formik";
 
@@ -38,8 +38,6 @@ function ListingEditingScreen(props) {
   const [uploadProgress, setUploadProgress] = useState(0);
   const location = useLocation();
 
-  LogBox.ignoreLogs(["Setting a timer for a long period of time,"]);
-
   const handleSubmit = (listing, { resetForm }) => {
     setUploadProgress(0);
 
@@ -53,7 +51,7 @@ function ListingEditingScreen(props) {
     if (!result) return alert(`Couldn't add listing: ` + result.problem);
 
     resetForm();
-    // alert("Success");
+    alert("Successfully uploaded.");
   };
 
   return (
