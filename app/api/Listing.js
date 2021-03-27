@@ -1,5 +1,6 @@
 import firebase from "firebase";
 import client from "./Client";
+import _ from "lodash";
 
 const endpoint = "/listings";
 
@@ -8,24 +9,53 @@ const uriToBlob = (uri) => {
     const xhr = new XMLHttpRequest();
 
     xhr.onload = function () {
-      // return the blob
       resolve(xhr.response);
     };
-
     xhr.onerror = function () {
-      // something went wrong
       reject(new Error("uriToBlob failed"));
     };
 
-    // this helps us get a blob
     xhr.responseType = "blob";
-
     xhr.open("GET", uri, true);
     xhr.send(null);
   });
 };
 
 const getListings = () => client.get(endpoint);
+
+const getListings1 = () => {
+  let data = {};
+
+  firebase
+    .database()
+    .ref("/listings")
+    .on("value", (snapshot) => {
+      data = snapshot.val();
+      console.log(snapshot.val());
+    });
+
+  let dataArray = _.map(data, (val, uid) => {
+    return { ...val, uid };
+  });
+
+  console.log(dataArray);
+
+  // return { ok: true, data };
+
+  //   //      data should be an array of these objects
+  //   // {
+  //   //   id: 3,
+  //   //   title: "Gray couch in a great condition",
+  //   //   images: [{ fileName: "couch2" }],
+  //   //   categoryId: 1,
+  //   //   price: 1200,
+  //   //   userId: 2,
+  //   //   location: {
+  //   //     latitude: 37.78825,
+  //   //     longitude: -122.4324,
+  //   //   },
+  //   // },
+};
 
 const addListing = (listing, onUploadProgress) => {
   onUploadProgress(0);
@@ -54,7 +84,6 @@ const addListing = (listing, onUploadProgress) => {
       .ref("listings/" + newPostKey + "/");
 
     images.forEach(async (image, index) => {
-      // const fileName = image.substring(image.lastIndexOf("/") + 1);
       const fileType = image.substring(image.lastIndexOf(".") + 1);
 
       uriToBlob(image).then((blob) => {
@@ -79,4 +108,5 @@ const addListing = (listing, onUploadProgress) => {
 export default {
   addListing,
   getListings,
+  getListings1,
 };

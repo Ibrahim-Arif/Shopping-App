@@ -22,10 +22,10 @@ function ListingScreen({ navigation }) {
 
   const onRefresh = () => {
     setRefreshing(true);
-    loadListing();
+    // loadListing();
+    listingApi.getListings1();
     setRefreshing(false);
   };
-
   return (
     <>
       {loading && <LoadingScreen color={colors.primary} />}

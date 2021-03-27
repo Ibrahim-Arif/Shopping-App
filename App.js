@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { Image, LogBox, View } from "react-native";
+import { LogBox } from "react-native";
 import AppLoading from "expo-app-loading";
 import firebase from "firebase";
 
@@ -13,7 +13,6 @@ import secureStorage from "./app/utilities/secureStorage";
 export default function App() {
   const [isReady, setIsReady] = useState(false);
   const [user, setUser] = useState();
-  const [url, setUrl] = useState();
 
   LogBox.ignoreLogs(["Setting a timer for a long period of time,"]);
 
@@ -27,9 +26,6 @@ export default function App() {
       messagingSenderId: "816524272637",
       appId: "1:816524272637:web:48c96805b9ebb8484baf94",
     });
-
-    // let ref = firebase.storage().ref("/listings/-MWnTVF3zJCY2nx-34WJ");
-    // ref.getDownloadURL().then((url) => setUrl(url));
   };
 
   useEffect(() => {
@@ -58,11 +54,6 @@ export default function App() {
   }
 
   return (
-    // <View
-    //   style={{ width: "100%", height: "50%", backgroundColor: "lightgrey" }}
-    // >
-    //   <Image source={{ uri: url }} style={{ width: "100%", height: "100%" }} />
-    // </View>
     <StateProvider user={user} setUser={setUser}>
       <NavigationContainer theme={NavigationTheme}>
         {user ? <AppNavigator /> : <WelcomeNavigator />}
