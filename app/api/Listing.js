@@ -33,23 +33,7 @@ const getListings = async () => {
     return { ...val, key };
   });
 
-  console.log(data);
-
   return { ok: true, data };
-
-  //   //      data should be an array of these objects
-  //   // {
-  //   //   id: 3,
-  //   //   title: "Gray couch in a great condition",
-  //   //   images: [{ fileName: "couch2" }],
-  //   //   categoryId: 1,
-  //   //   price: 1200,
-  //   //   userId: 2,
-  //   //   location: {
-  //   //     latitude: 37.78825,
-  //   //     longitude: -122.4324,
-  //   //   },
-  //   // },
 };
 
 const addListing = (listing, onUploadProgress) => {
@@ -75,22 +59,22 @@ const addListing = (listing, onUploadProgress) => {
 
     images.forEach((image, index) => {
       const fileType = image.substring(image.lastIndexOf(".") + 1);
-      let imagename = "image" + index + "." + fileType;
+      const imagename = "image" + index;
 
       uriToBlob(image).then((blob) => {
-        const task = newPostImagesDir.child(imagename).put(blob, {
-          contentType: "image/" + fileType,
-        });
-
+        const task = newPostImagesDir
+          .child(imagename + "." + fileType)
+          .put(blob, {
+            contentType: "image/" + fileType,
+          });
         task.on("state_changed", ({ bytesTransferred, totalBytes }) =>
           onUploadProgress(bytesTransferred / totalBytes)
         );
-
         task.then((snapshot) =>
           snapshot.ref.getDownloadURL().then((uri) => {
             data = {
               ...data,
-              image: uri,
+              ["imagesURL"]: { ...data.imagesURL, [imagename]: uri },
             };
 
             updates["/listings/" + newPostKey] = data;
@@ -102,9 +86,10 @@ const addListing = (listing, onUploadProgress) => {
     });
   } catch (error) {
     console.log(error);
+    return { ok: false };
   }
 
-  return true;
+  return { ok: true };
 };
 
 export default {

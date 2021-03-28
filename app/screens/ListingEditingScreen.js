@@ -48,7 +48,7 @@ function ListingEditingScreen(props) {
     );
     setUploadScreenVisible(false);
 
-    if (!result) return alert(`Couldn't add listing: ` + result.problem);
+    if (!result.ok) return alert(`Couldn't add listing: ` + result.problem);
 
     resetForm();
     alert("Successfully uploaded.");
