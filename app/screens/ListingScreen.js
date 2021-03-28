@@ -9,32 +9,27 @@ import MyButton from "../components/MyButton";
 import useApi from "../hooks/useApi";
 import OfflineNotice from "../components/OfflineNotice";
 import LoadingScreen from "../screens/LoadingScreen";
-import Listing from "../api/Listing";
 
 function ListingScreen({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
-  // const { data: listings, error, loading, request: loadListing } = useApi(
-  //   listingApi.getListings
-  // );
-  const error = false;
-  const loading = false;
-
-  const [listings, setListings] = useState([]);
+  const { data: listings, error, loading, request: loadListing } = useApi(
+    listingApi.getListings
+  );
 
   useEffect(() => {
-    // loadListing();
-    Listing.getListings(listings, setListings);
+    // console.log("inside");
+    loadListing();
   }, []);
 
   const onRefresh = () => {
     setRefreshing(true);
-    // loadListing();
-    // listingApi.getListings1();
-    Listing.getListings(listings, setListings);
+    loadListing();
     setRefreshing(false);
   };
+
   return (
     <>
+      {/* {!listings.length && <LoadingScreen color={colors.primary} />} */}
       {loading && <LoadingScreen color={colors.primary} />}
       <Screen style={{ backgroundColor: colors.lightgrey }}>
         <OfflineNotice />
