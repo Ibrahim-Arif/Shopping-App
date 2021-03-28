@@ -54,13 +54,13 @@ function ListingScreen({ navigation }) {
             keyExtractor={(item) => item.key}
             renderItem={({ item }) => (
               <Card
-                // imageUrl={item.images[0].url}
-                // thumbnailUrl={item.images[0].thumbnailUrl}
+                imageUrl={item.image}
+                thumbnailUrl={item.image}
                 description={item.description ? item.description : item.title}
                 price={item.price}
                 onPress={() =>
                   navigation.navigate("ListingDetail", {
-                    // imageUrl: item.images[0].url,
+                    imageUrl: item.image,
                     description: item.description
                       ? item.description
                       : item.title,

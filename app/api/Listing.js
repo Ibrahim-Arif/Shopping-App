@@ -1,8 +1,5 @@
 import firebase from "firebase";
-import client from "./Client";
 import _ from "lodash";
-
-const endpoint = "/listings";
 
 const uriToBlob = (uri) => {
   return new Promise((resolve, reject) => {
@@ -21,8 +18,6 @@ const uriToBlob = (uri) => {
   });
 };
 
-const getListings1 = () => client.get(endpoint);
-
 const getListings = async () => {
   let dataObj = {};
 
@@ -31,7 +26,6 @@ const getListings = async () => {
     .ref("/listings")
     .on("value", (snapshot) => {
       dataObj = snapshot.val();
-      // console.log(snapshot.val());
     });
 
   let data = [];
@@ -39,20 +33,7 @@ const getListings = async () => {
     return { ...val, key };
   });
 
-  // _.forEach(dataObj, (val, key) => {
-  //   let obj = { ...val, key };
-  //   firebase
-  //     .storage()
-  //     .ref("/listings/" + key + "/image0.png")
-  //     .getDownloadURL()
-  //     .then((uri) => {
-  //       obj = { ...obj, images: [{ url: uri }] };
-  //     });
-
-  //   data = [...data, obj];
-  // setListings(data);
-  // console.log(listings);
-  // });
+  console.log(data);
 
   return { ok: true, data };
 
@@ -119,10 +100,6 @@ const addListing = (listing, onUploadProgress) => {
         );
       });
     });
-
-    // updates["/listings/" + newPostKey] = data;
-    // updates["/users/" + uid + "/listings/" + newPostKey] = data;
-    // firebase.database().ref().update(updates);
   } catch (error) {
     console.log(error);
   }
@@ -133,5 +110,4 @@ const addListing = (listing, onUploadProgress) => {
 export default {
   addListing,
   getListings,
-  getListings1,
 };
