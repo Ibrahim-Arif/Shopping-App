@@ -4,9 +4,11 @@ import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import colors from "../config/colors";
 import ListItem from "../components/ListItem";
 import Seperator from "../components/Seperator";
+import { useUser } from "../components/userContext";
 
 function ListingDetailScreen({ route, navigation }) {
   const { imageUrl, description, price } = route.params;
+  const { user } = useUser();
 
   return (
     <View style={styles.container}>
@@ -27,9 +29,9 @@ function ListingDetailScreen({ route, navigation }) {
       <Seperator />
 
       <ListItem
-        title="Ibrahim Arif"
-        description="5 listings"
-        image={require("../assets/user.jpg")}
+        title={user.username}
+        description={`${user.totalListings} listings`}
+        image={user.image}
         onPress={() => null}
       />
     </View>

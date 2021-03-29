@@ -52,6 +52,7 @@ const addListing = (listing, onUploadProgress) => {
   try {
     const newPostKey = firebase.database().ref().child("listings").push().key;
     let updates = {};
+
     let newPostImagesDir = firebase
       .storage()
       .ref("listings/" + newPostKey + "/");
@@ -85,6 +86,17 @@ const addListing = (listing, onUploadProgress) => {
         );
       });
     });
+
+    //updating total posts of user after posting.
+    let updateTotalListing = {};
+    firebase
+      .database()
+      .ref("/users/" + uid + "/totalListings")
+      .on("value", (snapshot) => {
+        updateTotalListing["/users/" + uid + "/totalListings"] =
+          parseInt(snapshot.val()) + 1;
+      });
+    firebase.database().ref().update(updateTotalListing);
   } catch (error) {
     console.log(error);
     return { ok: false };
