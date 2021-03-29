@@ -1,14 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
+import firebase from "firebase";
 
 import colors from "../config/colors";
 import ListItem from "../components/ListItem";
 import Seperator from "../components/Seperator";
-import { useUser } from "../components/userContext";
+
+const getDealer = (dealerId) => {
+  let dealer = {};
+  firebase
+    .database()
+    .ref("/users/" + dealerId)
+    .on("value", (snapshot) => (dealer = snapshot.val()));
+
+  return dealer;
+};
 
 function ListingDetailScreen({ route, navigation }) {
-  const { imageUrl, description, price } = route.params;
-  const { user } = useUser();
+  const { itemDetail } = route.params;
+  const [dealer, setDealer] = useState({});
+
+  const {
+    imagesURL: { image0: imageUrl },
+    price,
+    uid,
+  } = itemDetail;
+
+  const description = itemDetail.description
+    ? itemDetail.description
+    : itemDetail.title;
+
+  useEffect(() => {
+    setDealer(getDealer(uid));
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -19,25 +43,27 @@ function ListingDetailScreen({ route, navigation }) {
         <Image style={styles.image} source={{ uri: imageUrl }} />
 
         <View style={styles.detailContainer}>
-          {description && <Text style={styles.text}>{description}</Text>}
+          <Text style={styles.text}>{description}</Text>
           <Text style={[styles.text, { color: colors.secondary }]}>
             ${price}
           </Text>
         </View>
       </TouchableOpacity>
 
-      <Seperator />
-
       <ListItem
-        title={user.username}
-        description={`${user.totalListings} listings`}
-        image={user.image}
+        title={dealer.username}
+        description={`${
+          dealer.totalListings ? dealer.totalListings : "0"
+        } listings`}
+        image={dealer.image}
         onPress={() => null}
       />
+
+      <Seperator />
     </View>
   );
 }
-0;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

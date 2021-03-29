@@ -15,7 +15,8 @@ export default useLocation = () => {
 
       setLocation({ latitude, longitude });
     } catch (error) {
-      alert("Something went wrong while reading your location");
+      // alert("Something went wrong while reading your location");
+      console.log("Something went wrong while reading your location");
     }
   };
 

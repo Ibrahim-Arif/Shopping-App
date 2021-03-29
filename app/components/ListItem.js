@@ -17,7 +17,7 @@ function ListItem({
     <Swipeable renderRightActions={renderRightActions}>
       <TouchableOpacity onPress={onPress}>
         <View style={[styles.container, style]}>
-          {image && <Image style={styles.image} source={image} />}
+          {image && <Image style={styles.image} source={{ uri: image }} />}
           {IconComponent}
 
           <View style={styles.containerText}>

@@ -1,7 +1,7 @@
 import firebase from "firebase";
 import _ from "lodash";
 
-const uriToBlob = (uri) => {
+const _uriToBlob = (uri) => {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
 
@@ -61,7 +61,7 @@ const addListing = (listing, onUploadProgress) => {
       const fileType = image.substring(image.lastIndexOf(".") + 1);
       const imagename = "image" + index;
 
-      uriToBlob(image).then((blob) => {
+      _uriToBlob(image).then((blob) => {
         const storageTask = newPostImagesDir
           .child(imagename + "." + fileType)
           .put(blob, {

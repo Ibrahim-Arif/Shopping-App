@@ -59,11 +59,7 @@ function ListingScreen({ navigation }) {
                 price={item.price}
                 onPress={() =>
                   navigation.navigate("ListingDetail", {
-                    imageUrl: item.imagesURL.image0,
-                    description: item.description
-                      ? item.description
-                      : item.title,
-                    price: item.price,
+                    itemDetail: item,
                   })
                 }
               />

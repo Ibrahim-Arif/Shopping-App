@@ -25,7 +25,8 @@ const logIn = async (email, password, setLoginFailed, setUser) => {
           .on("value", (snapshot) => {
             const user = {
               ...snapshot.val(),
-              image: require("./app/assets/user.jpg"),
+              image:
+                "https://firebasestorage.googleapis.com/v0/b/dawn-bcee8.appspot.com/o/user.jpg?alt=media&token=3ecf406b-e0ef-4856-9844-d371c0fc2436",
             };
 
             setUser(user);
