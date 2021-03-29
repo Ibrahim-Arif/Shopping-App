@@ -113,6 +113,7 @@ function ListingEditingScreen(props) {
               />
               <MyButton
                 color={colors.primary}
+                title="Submit"
                 style={styles.submitButton}
                 onPress={handleSubmit}
               />

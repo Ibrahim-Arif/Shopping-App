@@ -52,7 +52,6 @@ const addListing = (listing, onUploadProgress) => {
   try {
     const newPostKey = firebase.database().ref().child("listings").push().key;
     let updates = {};
-
     let newPostImagesDir = firebase
       .storage()
       .ref("listings/" + newPostKey + "/");
@@ -62,15 +61,17 @@ const addListing = (listing, onUploadProgress) => {
       const imagename = "image" + index;
 
       uriToBlob(image).then((blob) => {
-        const task = newPostImagesDir
+        const storageTask = newPostImagesDir
           .child(imagename + "." + fileType)
           .put(blob, {
             contentType: "image/" + fileType,
           });
-        task.on("state_changed", ({ bytesTransferred, totalBytes }) =>
+
+        storageTask.on("state_changed", ({ bytesTransferred, totalBytes }) =>
           onUploadProgress(bytesTransferred / totalBytes)
         );
-        task.then((snapshot) =>
+
+        storageTask.then((snapshot) =>
           snapshot.ref.getDownloadURL().then((uri) => {
             data = {
               ...data,

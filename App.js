@@ -11,9 +11,36 @@ import AppNavigator from "./app/navigations/AppNavigation";
 import { StateProvider } from "./app/components/userContext";
 import secureStorage from "./app/utilities/secureStorage";
 
+const logIn = async (email, password, setLoginFailed, setUser) => {
+  try {
+    setLoginFailed(false);
+
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then((current) => {
+        firebase
+          .database()
+          .ref("/users/" + current.user.uid)
+          .on("value", (snapshot) => {
+            const user = {
+              ...snapshot.val(),
+              image: require("./app/assets/user.jpg"),
+            };
+
+            setUser(user);
+          });
+      })
+      .catch(() => setLoginFailed(true));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export default function App() {
   const [isReady, setIsReady] = useState(false);
   const [user, setUser] = useState();
+  const [loginFailed, setLoginFailed] = useState(false);
 
   LogBox.ignoreLogs(["Setting a timer for a long period of time,"]);
 
@@ -34,14 +61,19 @@ export default function App() {
   }, []);
 
   const authUser = async () => {
+    initFirebase();
     const result = await secureStorage.readUser();
     if (!result) return;
+    const parsed = JSON.parse(result);
 
-    const user = JSON.parse(result);
-    setUser(user);
+    // initializing user with minimun value so that
+    // home screen will come without delay
+    // then logging in and again initializing with complete user info
+    setUser(parsed);
 
-    initFirebase();
-    firebase.auth().signInWithEmailAndPassword(user.email, user.password);
+    logIn(parsed.email, parsed.password, setLoginFailed, setUser);
+
+    if (loginFailed) return alert("Session Time out");
   };
 
   if (!isReady) {

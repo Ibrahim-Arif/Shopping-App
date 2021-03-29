@@ -6,19 +6,32 @@ const UserContext = React.createContext();
 
 const useUser = () => {
   const { user, setUser } = useContext(UserContext);
-  const image = require("../assets/user.jpg");
+
+  const updateUser = (uid) => {
+    firebase
+      .database()
+      .ref("/users/" + uid)
+      .on("value", (snapshot) => {
+        const user = {
+          ...snapshot.val(),
+          image: require("../assets/user.jpg"),
+        };
+
+        setUser(user);
+      });
+  };
 
   const logIn = async (email, password, setLoginFailed) => {
     try {
       setLoginFailed(false);
-      const user = { email, password, username: "Sample User", image };
 
       firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
-        .then(() => {
-          secureStorage.storeUser(user);
-          setUser(user);
+        .then((current) => {
+          secureStorage.storeUser({ email, password });
+          setUser({ username, email });
+          updateUser(current.user.uid);
         })
         .catch(() => setLoginFailed(true));
     } catch (error) {
@@ -37,8 +50,7 @@ const useUser = () => {
           username,
           email,
           image: "../assets/user.jpg",
-          messages: {},
-          listings: {},
+          totalListings: "0",
         });
     } catch (error) {
       console.log(error);
@@ -51,11 +63,11 @@ const useUser = () => {
       firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
-        .then(() => {
+        .then((current) => {
           createUser(username, email);
-
-          secureStorage.storeUser({ username, email, password, image });
-          setUser({ username, email, password, image });
+          secureStorage.storeUser({ email, password });
+          setUser({ username, email });
+          updateUser(current.user.uid);
         })
         .catch(() => setRegistrationFailed(true));
     } catch (error) {

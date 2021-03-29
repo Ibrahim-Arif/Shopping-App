@@ -17,7 +17,6 @@ function ListingScreen({ navigation }) {
   );
 
   useEffect(() => {
-    // console.log("inside");
     loadListing();
   }, []);
 
