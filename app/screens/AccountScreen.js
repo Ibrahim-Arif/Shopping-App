@@ -5,13 +5,14 @@ import colors from "../config/colors";
 import ListItem from "../components/ListItem";
 import Icon from "../components/Icon";
 import Seperator from "../components/Seperator";
-import { useUser } from "../components/userContext";
+import { useUser } from "../hooks/useUser";
+import useAuthentication from "../hooks/useAuthentication";
 
 function AccountScreen({ navigation }) {
   const {
     user: { username, email, image },
-    logOut,
   } = useUser();
+  const { logOut } = useAuthentication();
 
   const menuItems = [
     {

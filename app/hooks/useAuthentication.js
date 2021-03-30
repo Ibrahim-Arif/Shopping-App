@@ -1,42 +1,18 @@
-import React, { useContext } from "react";
 import secureStorage from "../utilities/secureStorage";
 import firebase from "firebase";
 
-const UserContext = React.createContext();
+import { useUser } from "./useUser";
 
-const useUser = () => {
-  const { user, setUser } = useContext(UserContext);
+export default useAuthentication = () => {
+  const { setUser } = useUser();
 
-  const updateUser = (uid) => {
+  const _updateUser = (uid) => {
     firebase
       .database()
       .ref("/users/" + uid)
       .on("value", (snapshot) => setUser(snapshot.val()));
   };
-
-  const logIn = async (email, password, setLoginFailed, setLoading) => {
-    try {
-      setLoginFailed(false);
-
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(email, password)
-        .then((current) => {
-          secureStorage.storeUser({ email, password });
-          updateUser(current.user.uid);
-        })
-        .catch(() => {
-          setLoginFailed(true);
-          setLoading(false);
-        });
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-      setLoginFailed(true);
-    }
-  };
-
-  const createUser = async (username, email, image) => {
+  const _createUser = async (username, email, image) => {
     try {
       const uid = firebase.auth().currentUser.uid;
 
@@ -54,6 +30,28 @@ const useUser = () => {
     }
   };
 
+  const logIn = async (email, password, setLoginFailed, setLoading) => {
+    try {
+      setLoginFailed(false);
+
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .then((current) => {
+          secureStorage.storeUser({ email, password });
+          _updateUser(current.user.uid);
+        })
+        .catch(() => {
+          setLoginFailed(true);
+          setLoading(false);
+        });
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      setLoginFailed(true);
+    }
+  };
+
   const register = async (newUser, setRegistrationFailed, setLoading) => {
     const { username, email, password, image } = newUser;
 
@@ -63,9 +61,9 @@ const useUser = () => {
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then((current) => {
-          createUser(username, email, image).then(() => {
+          _createUser(username, email, image).then(() => {
             secureStorage.storeUser({ email, password });
-            updateUser(current.user.uid);
+            _updateUser(current.user.uid);
           });
         })
         .catch(() => {
@@ -84,15 +82,5 @@ const useUser = () => {
     setUser(null);
   };
 
-  return { user, logIn, logOut, register, setUser };
+  return { logIn, logOut, register };
 };
-
-function StateProvider({ children, user, setUser }) {
-  return (
-    <UserContext.Provider value={{ user, setUser }}>
-      {children}
-    </UserContext.Provider>
-  );
-}
-
-export { StateProvider, useUser };

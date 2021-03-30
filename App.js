@@ -8,7 +8,7 @@ import _ from "lodash";
 import NavigationTheme from "./app/navigations/NavigationTheme";
 import WelcomeNavigator from "./app/navigations/WelcomeNavigator";
 import AppNavigator from "./app/navigations/AppNavigation";
-import { StateProvider } from "./app/components/userContext";
+import { StateProvider } from "./app/hooks/useUser";
 import secureStorage from "./app/utilities/secureStorage";
 
 const logIn = async (email, password, setLoginFailed, setUser) => {

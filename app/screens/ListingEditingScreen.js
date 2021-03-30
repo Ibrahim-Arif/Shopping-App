@@ -13,7 +13,7 @@ import Screen from "../components/Screen";
 import TopTitle from "../components/TopTitle";
 import useLocation from "../hooks/useLocation";
 import UploadScreen from "./UploadScreen";
-import { useUser } from "../components/userContext";
+import { useUser } from "../hooks/useUser";
 
 const valiadationRules = yup.object().shape({
   title: yup.string().required().min(1).label("Title"),

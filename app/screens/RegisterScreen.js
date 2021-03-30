@@ -8,8 +8,8 @@ import colors from "../config/colors";
 import MyButton from "../components/MyButton";
 import Icon from "../components/Icon";
 import FormTextInput from "../components/FormTextInput";
-import { useUser } from "../components/userContext";
 import LoadingScreen from "./LoadingScreen";
+import useAuthentication from "../hooks/useAuthentication";
 
 const valiadationRules = yup.object().shape({
   username: yup.string().required().label("Username"),
@@ -18,7 +18,7 @@ const valiadationRules = yup.object().shape({
 });
 
 function RegisterScreen({ navigation }) {
-  const { register } = useUser();
+  const { register } = useAuthentication();
   const [loading, setLoading] = useState(false);
   const [registrationFailed, setRegistrationFailed] = useState(false);
   const image =

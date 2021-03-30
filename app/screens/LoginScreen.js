@@ -8,8 +8,8 @@ import colors from "../config/colors";
 import MyButton from "../components/MyButton";
 import Icon from "../components/Icon";
 import FormTextInput from "../components/FormTextInput";
-import { useUser } from "../components/userContext";
 import LoadingScreen from "./LoadingScreen";
+import useAuthentication from "../hooks/useAuthentication";
 
 const valiadationRules = yup.object().shape({
   email: yup.string().required().email().label("Email"),
@@ -19,7 +19,7 @@ const valiadationRules = yup.object().shape({
 function LoginScreen({ navigation }) {
   const [loading, setLoading] = useState(false);
   const [loginFailed, setLoginFailed] = useState(false);
-  const { logIn } = useUser();
+  const { logIn } = useAuthentication();
 
   const handleSubmit = ({ email, password }) => {
     setLoading(true);
