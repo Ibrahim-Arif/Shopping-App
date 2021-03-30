@@ -13,6 +13,7 @@ import Screen from "../components/Screen";
 import TopTitle from "../components/TopTitle";
 import useLocation from "../hooks/useLocation";
 import UploadScreen from "./UploadScreen";
+import { useUser } from "../components/userContext";
 
 const valiadationRules = yup.object().shape({
   title: yup.string().required().min(1).label("Title"),
@@ -36,15 +37,16 @@ const categories = [
 function ListingEditingScreen(props) {
   const [uploadScreenVisible, setUploadScreenVisible] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const { user } = useUser();
   const location = useLocation();
 
   const handleSubmit = (listing, { resetForm }) => {
-    setUploadProgress(0);
-
     setUploadScreenVisible(true);
     const result = listingApi.addListing(
       { ...listing, location },
-      setUploadProgress
+      setUploadProgress,
+      uploadProgress,
+      user
     );
     setUploadScreenVisible(false);
 

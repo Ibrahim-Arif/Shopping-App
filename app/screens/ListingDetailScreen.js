@@ -1,38 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
-import firebase from "firebase";
 
 import colors from "../config/colors";
 import ListItem from "../components/ListItem";
 import Seperator from "../components/Seperator";
 
-const getDealer = (dealerId) => {
-  let dealer = {};
-  firebase
-    .database()
-    .ref("/users/" + dealerId)
-    .on("value", (snapshot) => (dealer = snapshot.val()));
-
-  return dealer;
-};
-
 function ListingDetailScreen({ route, navigation }) {
   const { itemDetail } = route.params;
-  const [dealer, setDealer] = useState({});
 
   const {
     imagesURL: { image0: imageUrl },
     price,
-    uid,
+    dealer,
   } = itemDetail;
 
   const description = itemDetail.description
     ? itemDetail.description
     : itemDetail.title;
-
-  useEffect(() => {
-    setDealer(getDealer(uid));
-  }, []);
 
   return (
     <View style={styles.container}>

@@ -36,12 +36,16 @@ const getListings = async () => {
   return { ok: true, data };
 };
 
-const addListing = (listing, onUploadProgress) => {
-  onUploadProgress(0);
+const addListing = (listing, setUploadProgress, uploadProgress, user) => {
+  setUploadProgress(0);
   const uid = firebase.auth().currentUser.uid;
 
+  let { username, image, totalListings } = user;
+  totalListings = parseInt(totalListings) + 1;
+  let dealer = { username, image, totalListings };
+
   const { title, price, category, description, images } = listing;
-  let data = { title, price, category, description, uid };
+  let data = { title, price, category, description, dealerId: uid };
 
   let location;
   if (listing.location) {
@@ -68,9 +72,16 @@ const addListing = (listing, onUploadProgress) => {
             contentType: "image/" + fileType,
           });
 
-        storageTask.on("state_changed", ({ bytesTransferred, totalBytes }) =>
-          onUploadProgress(bytesTransferred / totalBytes)
-        );
+        storageTask.on("state_changed", ({ bytesTransferred, totalBytes }) => {
+          // console.log(bytesTransferred / totalBytes);
+          console.log(setUploadProgress);
+          // setUploadProgress(bytesTransferred / totalBytes);
+          // console.log(uploadProgress);
+        });
+
+        // return client.post(endpoint, data, {
+        //   onUploadProgress: ({ loaded, total }) => onUploadProgress(loaded / total),
+        // });
 
         storageTask.then((snapshot) =>
           snapshot.ref.getDownloadURL().then((uri) => {
@@ -79,7 +90,7 @@ const addListing = (listing, onUploadProgress) => {
               ["imagesURL"]: { ...data.imagesURL, [imagename]: uri },
             };
 
-            updates["/listings/" + newPostKey] = data;
+            updates["/listings/" + newPostKey] = { ...data, dealer };
             updates["/users/" + uid + "/listings/" + newPostKey] = data;
             firebase.database().ref().update(updates);
           })
@@ -87,7 +98,7 @@ const addListing = (listing, onUploadProgress) => {
       });
     });
 
-    //updating total posts of user after posting.
+    //updating total posts of user.
     let updateTotalListing = {};
     firebase
       .database()
