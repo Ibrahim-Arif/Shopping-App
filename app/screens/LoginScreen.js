@@ -23,8 +23,7 @@ function LoginScreen({ navigation }) {
 
   const handleSubmit = ({ email, password }) => {
     setLoading(true);
-    logIn(email, password, setLoginFailed);
-    setLoading(false);
+    logIn(email, password, setLoginFailed, setLoading);
   };
 
   return (

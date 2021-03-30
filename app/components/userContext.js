@@ -11,17 +11,10 @@ const useUser = () => {
     firebase
       .database()
       .ref("/users/" + uid)
-      .on("value", (snapshot) => {
-        const user = {
-          ...snapshot.val(),
-          image: require("../assets/user.jpg"),
-        };
-
-        setUser(user);
-      });
+      .on("value", (snapshot) => setUser(snapshot.val()));
   };
 
-  const logIn = async (email, password, setLoginFailed) => {
+  const logIn = async (email, password, setLoginFailed, setLoading) => {
     try {
       setLoginFailed(false);
 
@@ -30,27 +23,30 @@ const useUser = () => {
         .signInWithEmailAndPassword(email, password)
         .then((current) => {
           secureStorage.storeUser({ email, password });
-          setUser({ username, email });
           updateUser(current.user.uid);
         })
-        .catch(() => setLoginFailed(true));
+        .catch(() => {
+          setLoginFailed(true);
+          setLoading(false);
+        });
     } catch (error) {
       console.log(error);
+      setLoading(false);
+      setLoginFailed(true);
     }
   };
 
-  const createUser = async (username, email) => {
+  const createUser = async (username, email, image) => {
     try {
       const uid = firebase.auth().currentUser.uid;
 
-      firebase
+      await firebase
         .database()
         .ref(`/users/` + uid)
         .set({
           username,
           email,
-          image:
-            "https://firebasestorage.googleapis.com/v0/b/dawn-bcee8.appspot.com/o/user.jpg?alt=media&token=3ecf406b-e0ef-4856-9844-d371c0fc2436",
+          image,
           totalListings: "0",
         });
     } catch (error) {
@@ -58,21 +54,28 @@ const useUser = () => {
     }
   };
 
-  const register = async (username, email, password, setRegistrationFailed) => {
+  const register = async (newUser, setRegistrationFailed, setLoading) => {
+    const { username, email, password, image } = newUser;
+
     try {
       setRegistrationFailed(false);
       firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then((current) => {
-          createUser(username, email);
-          secureStorage.storeUser({ email, password });
-          setUser({ username, email });
-          updateUser(current.user.uid);
+          createUser(username, email, image).then(() => {
+            secureStorage.storeUser({ email, password });
+            updateUser(current.user.uid);
+          });
         })
-        .catch(() => setRegistrationFailed(true));
+        .catch(() => {
+          setRegistrationFailed(true);
+          setLoading(false);
+        });
     } catch (error) {
       console.log(error);
+      setRegistrationFailed(true);
+      setLoading(false);
     }
   };
 

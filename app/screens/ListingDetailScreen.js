@@ -1,18 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
+import firebase from "firebase";
 
 import colors from "../config/colors";
 import ListItem from "../components/ListItem";
 import Seperator from "../components/Seperator";
 
+const getTotalListings = (dealerId) => {
+  let totalListings;
+  firebase
+    .database()
+    .ref("/users/" + dealerId + "/totalListings")
+    .on("value", (snapshot) => (totalListings = snapshot.val()));
+
+  return totalListings;
+};
+
 function ListingDetailScreen({ route, navigation }) {
+  const [totalListings, setTotalListings] = useState("");
   const { itemDetail } = route.params;
 
   const {
     imagesURL: { image0: imageUrl },
     price,
+    dealerId,
     dealer,
   } = itemDetail;
+
+  useEffect(() => {
+    setTotalListings(getTotalListings(dealerId));
+  }, []);
 
   const description = itemDetail.description
     ? itemDetail.description
@@ -36,9 +53,9 @@ function ListingDetailScreen({ route, navigation }) {
 
       <ListItem
         title={dealer.username}
-        description={`${
-          dealer.totalListings ? dealer.totalListings : "0"
-        } listings`}
+        description={`${totalListings} ${
+          totalListings > 1 ? "products" : "product"
+        }`}
         image={dealer.image}
         onPress={() => null}
       />

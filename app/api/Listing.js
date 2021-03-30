@@ -40,9 +40,8 @@ const addListing = (listing, setUploadProgress, user) => {
   setUploadProgress(0);
   const uid = firebase.auth().currentUser.uid;
 
-  let { username, image, totalListings } = user;
-  totalListings = parseInt(totalListings) + 1;
-  let dealer = { username, image, totalListings };
+  let { username, image } = user;
+  let dealer = { username, image };
 
   const { title, price, category, description, images } = listing;
   let data = { title, price, category, description, dealerId: uid };

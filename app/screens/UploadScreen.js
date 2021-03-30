@@ -4,7 +4,6 @@ import * as Progress from "react-native-progress";
 import colors from "../config/colors";
 
 function UploadScreen({ progress, visible }) {
-  // console.log("progress: " + progress + ", visibility: " + visible);
   return (
     <Modal visible={visible}>
       <View style={styles.container}>

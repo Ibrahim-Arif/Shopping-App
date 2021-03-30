@@ -21,11 +21,12 @@ function RegisterScreen({ navigation }) {
   const { register } = useUser();
   const [loading, setLoading] = useState(false);
   const [registrationFailed, setRegistrationFailed] = useState(false);
+  const image =
+    "https://firebasestorage.googleapis.com/v0/b/dawn-bcee8.appspot.com/o/user.jpg?alt=media&token=3ecf406b-e0ef-4856-9844-d371c0fc2436";
 
-  const handleSubmit = ({ username, email, password }) => {
+  const handleSubmit = async (newUser) => {
     setLoading(true);
-    register(username, email, password, setRegistrationFailed);
-    setLoading(false);
+    register({ ...newUser, image }, setRegistrationFailed, setLoading);
   };
 
   return (
