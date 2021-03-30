@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import * as yup from "yup";
 import { Formik } from "formik";
 
@@ -35,32 +35,28 @@ const categories = [
 ];
 
 function ListingEditingScreen(props) {
-  const [uploadScreenVisible, setUploadScreenVisible] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const { user } = useUser();
   const location = useLocation();
 
   const handleSubmit = (listing, { resetForm }) => {
-    setUploadScreenVisible(true);
+    setUploadProgress(0);
     const result = listingApi.addListing(
       { ...listing, location },
       setUploadProgress,
-      uploadProgress,
       user
     );
-    setUploadScreenVisible(false);
 
     if (!result.ok) return alert(`Couldn't add listing: ` + result.problem);
-
     resetForm();
-    alert("Successfully uploaded.");
   };
 
   return (
     <Screen style={styles.container}>
-      {uploadScreenVisible && (
-        <UploadScreen progress={uploadProgress} visible={uploadScreenVisible} />
-      )}
+      <UploadScreen
+        progress={uploadProgress}
+        visible={uploadProgress > 0 && uploadProgress < 1}
+      />
       <TopTitle title="Item Detail" color={colors.primary} />
 
       <ScrollView>

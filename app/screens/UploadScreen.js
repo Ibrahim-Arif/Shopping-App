@@ -3,7 +3,8 @@ import { Modal, StyleSheet, View } from "react-native";
 import * as Progress from "react-native-progress";
 import colors from "../config/colors";
 
-function UploadScreen({ progress = 0, visible = false }) {
+function UploadScreen({ progress, visible }) {
+  // console.log("progress: " + progress + ", visibility: " + visible);
   return (
     <Modal visible={visible}>
       <View style={styles.container}>

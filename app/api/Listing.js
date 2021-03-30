@@ -36,7 +36,7 @@ const getListings = async () => {
   return { ok: true, data };
 };
 
-const addListing = (listing, setUploadProgress, uploadProgress, user) => {
+const addListing = (listing, setUploadProgress, user) => {
   setUploadProgress(0);
   const uid = firebase.auth().currentUser.uid;
 
@@ -72,16 +72,9 @@ const addListing = (listing, setUploadProgress, uploadProgress, user) => {
             contentType: "image/" + fileType,
           });
 
-        storageTask.on("state_changed", ({ bytesTransferred, totalBytes }) => {
-          // console.log(bytesTransferred / totalBytes);
-          console.log(setUploadProgress);
-          // setUploadProgress(bytesTransferred / totalBytes);
-          // console.log(uploadProgress);
+        storageTask.on("state_changed", function progress(snapshot) {
+          setUploadProgress(snapshot.bytesTransferred / snapshot.totalBytes);
         });
-
-        // return client.post(endpoint, data, {
-        //   onUploadProgress: ({ loaded, total }) => onUploadProgress(loaded / total),
-        // });
 
         storageTask.then((snapshot) =>
           snapshot.ref.getDownloadURL().then((uri) => {
