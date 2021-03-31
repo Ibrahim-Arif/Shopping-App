@@ -18,20 +18,17 @@ const _uriToBlob = (uri) => {
   });
 };
 
-const getListings = async () => {
-  let dataObj = {};
+const getListings = () => {
+  let data = [];
 
   firebase
     .database()
     .ref("/listings")
     .on("value", (snapshot) => {
-      dataObj = snapshot.val();
+      data = _.map(snapshot.val(), (val, key) => {
+        return { ...val, key };
+      });
     });
-
-  let data = [];
-  data = _.map(dataObj, (val, key) => {
-    return { ...val, key };
-  });
 
   return { ok: true, data };
 };

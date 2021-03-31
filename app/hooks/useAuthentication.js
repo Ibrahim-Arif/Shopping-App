@@ -1,7 +1,7 @@
-import secureStorage from "../utilities/secureStorage";
 import firebase from "firebase";
 
 import { useUser } from "./useUser";
+import secureStorage from "../utilities/secureStorage";
 
 export default useAuthentication = () => {
   const { setUser } = useUser();

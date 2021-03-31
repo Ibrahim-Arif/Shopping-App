@@ -19,103 +19,44 @@ const initialMessages = [
     id: 1,
     title: "user",
     description: "Is product avaliable?",
-    image: require("../assets/user.jpg"),
   },
   {
     id: 2,
     title: "user",
     description: "Is product avaliable?",
-    image: require("../assets/user.jpg"),
   },
   {
     id: 3,
     title: "user",
     description: "Is product avaliable?",
-    image: require("../assets/user.jpg"),
   },
   {
     id: 4,
     title: "user",
     description: "Is product avaliable?",
-    image: require("../assets/user.jpg"),
   },
   {
     id: 5,
     title: "user",
     description: "Is product avaliable?",
-    image: require("../assets/user.jpg"),
   },
   {
     id: 6,
     title: "user",
     description: "Is product avaliable?",
-    image: require("../assets/user.jpg"),
   },
   {
     id: 7,
     title: "user",
     description: "Is product avaliable?",
-    image: require("../assets/user.jpg"),
-  },
-  {
-    id: 8,
-    title: "user",
-    description: "Is product avaliable?",
-    image: require("../assets/user.jpg"),
-  },
-  {
-    id: 9,
-    title: "user",
-    description: "Is product avaliable?",
-    image: require("../assets/user.jpg"),
-  },
-  {
-    id: 10,
-    title: "user",
-    description: "Is product avaliable?",
-    image: require("../assets/user.jpg"),
-  },
-  {
-    id: 11,
-    title: "user",
-    description: "Is product avaliable?",
-    image: require("../assets/user.jpg"),
-  },
-  {
-    id: 12,
-    title: "user",
-    description: "Is product avaliable?",
-    image: require("../assets/user.jpg"),
-  },
-  {
-    id: 13,
-    title: "user",
-    description: "Is product avaliable?",
-    image: require("../assets/user.jpg"),
-  },
-  {
-    id: 14,
-    title: "user",
-    description: "Is product avaliable?",
-    image: require("../assets/user.jpg"),
-  },
-  {
-    id: 15,
-    title: "user",
-    description: "Is product avaliable?",
-    image: require("../assets/user.jpg"),
-  },
-  {
-    id: 16,
-    title: "user",
-    description: "Is product avaliable?",
-    image: require("../assets/user.jpg"),
   },
 ];
 
 function MessageScreen({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
   const [messages, setMessages] = useState(initialMessages);
+  const image =
+    "https://firebasestorage.googleapis.com/v0/b/dawn-bcee8.appspot.com/o/user.jpg?alt=media&token=3ecf406b-e0ef-4856-9844-d371c0fc2436";
 
   const onRefresh = () => {
     setRefreshing(true);
@@ -144,7 +85,7 @@ function MessageScreen({ navigation }) {
             <ListItem
               title={item.title + item.id}
               description={item.description}
-              image={item.image}
+              image={image}
               rightIcon={true}
               onPress={() =>
                 Alert.alert("Alert", "Tapped on: " + item.title + item.id)

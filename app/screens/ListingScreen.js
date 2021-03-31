@@ -1,20 +1,43 @@
 import React, { useState, useEffect } from "react";
 import { FlatList, StyleSheet, View, Text, RefreshControl } from "react-native";
+import firebase from "firebase";
+import _ from "lodash";
 
 import Card from "../components/Card";
 import colors from "../config/colors";
-import listingApi from "../api/Listing";
 import Screen from "../components/Screen";
 import MyButton from "../components/MyButton";
-import useApi from "../hooks/useApi";
 import OfflineNotice from "../components/OfflineNotice";
 import LoadingScreen from "../screens/LoadingScreen";
 
 function ListingScreen({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
-  const { data: listings, error, loading, request: loadListing } = useApi(
-    listingApi.getListings
-  );
+  const [listings, setListings] = useState([]);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const loadListing = () => {
+    setLoading(true);
+    setError(false);
+
+    firebase
+      .database()
+      .ref("/listings")
+      .on("value", (snapshot) => {
+        if (!snapshot.val()) {
+          setError(true);
+          setLoading(false);
+          return;
+        }
+
+        setListings(
+          _.map(snapshot.val(), (val, key) => {
+            return { ...val, key };
+          })
+        );
+        setLoading(false);
+      });
+  };
 
   useEffect(() => {
     loadListing();
@@ -28,7 +51,6 @@ function ListingScreen({ navigation }) {
 
   return (
     <>
-      {/* {!listings.length && <LoadingScreen color={colors.primary} />} */}
       {loading && <LoadingScreen color={colors.primary} />}
       <Screen style={{ backgroundColor: colors.lightgrey }}>
         <OfflineNotice />
@@ -54,7 +76,6 @@ function ListingScreen({ navigation }) {
             renderItem={({ item }) => (
               <Card
                 imageUrl={item.imagesURL.image0}
-                // thumbnailUrl={item.imagesURL.image0}
                 description={item.description ? item.description : item.title}
                 price={item.price}
                 onPress={() =>
