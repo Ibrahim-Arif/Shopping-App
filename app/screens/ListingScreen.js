@@ -17,26 +17,27 @@ function ListingScreen({ navigation }) {
   const [loading, setLoading] = useState(false);
 
   const loadListing = () => {
+    let data = [];
     setLoading(true);
     setError(false);
 
-    firebase
-      .database()
-      .ref("/listings")
-      .on("value", (snapshot) => {
-        if (!snapshot.val()) {
-          setError(true);
-          setLoading(false);
-          return;
-        }
-
-        setListings(
-          _.map(snapshot.val(), (val, key) => {
+    try {
+      firebase
+        .database()
+        .ref("/listings")
+        .on("value", (snapshot) => {
+          data = _.map(snapshot.val(), (val, key) => {
             return { ...val, key };
-          })
-        );
-        setLoading(false);
-      });
+          });
+
+          setListings(data.reverse());
+          setLoading(false);
+        });
+    } catch (error) {
+      console.log("Error while reading: " + error);
+      setError(true);
+      setLoading(false);
+    }
   };
 
   useEffect(() => {

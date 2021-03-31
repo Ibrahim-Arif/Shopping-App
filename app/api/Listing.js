@@ -36,12 +36,20 @@ const getListings = () => {
 const addListing = (listing, setUploadProgress, user) => {
   setUploadProgress(0);
   const uid = firebase.auth().currentUser.uid;
+  let date = new Date();
 
   let { username, image } = user;
   let dealer = { username, image };
 
   const { title, price, category, description, images } = listing;
-  let data = { title, price, category, description, dealerId: uid };
+  let data = {
+    title,
+    price,
+    category,
+    description,
+    dealerId: uid,
+    timestamp: date.getTime(),
+  };
 
   let location;
   if (listing.location) {
