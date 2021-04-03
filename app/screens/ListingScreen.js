@@ -22,12 +22,10 @@ function ListingScreen({ navigation }) {
     setError(false);
 
     try {
-      console.log("inside");
       firebase
         .database()
         .ref("/listings")
         .on("value", (snapshot) => {
-          console.log("inside");
           data = _.map(snapshot.val(), (val, key) => {
             return { ...val, key };
           });

@@ -56,7 +56,6 @@ function ListingDetailScreen({ route, navigation }) {
         image={dealer.image}
         // onPress={() => null}
       />
-
       <Seperator />
     </View>
   );

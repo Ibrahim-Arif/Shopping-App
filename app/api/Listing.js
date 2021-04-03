@@ -33,7 +33,7 @@ const getListings = () => {
   return { ok: true, data };
 };
 
-const addListing = (listing, setUploadProgress, user, resetForm) => {
+const addListing = (listing, setUploadProgress, user) => {
   setUploadProgress(0);
   const uid = firebase.auth().currentUser.uid;
   let date = new Date();
@@ -90,7 +90,6 @@ const addListing = (listing, setUploadProgress, user, resetForm) => {
             updates["/listings/" + newPostKey] = { ...data, dealer };
             updates["/users/" + uid + "/listings/" + newPostKey] = data;
             firebase.database().ref().update(updates);
-            resetForm();
           })
         );
       });
