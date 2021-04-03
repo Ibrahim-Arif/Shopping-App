@@ -9,7 +9,6 @@ function Card({ imageUrl, description, price, onPress, thumbnailUrl }) {
         source={{ uri: imageUrl }}
         resizeMode="cover"
         preview={{ uri: thumbnailUrl }}
-        defaultSource={require("../assets/background1.jpg")}
       />
       {description && <Text style={styles.text}>{description}</Text>}
       <Text style={[styles.text, styles.price]}>{"$" + price}</Text>

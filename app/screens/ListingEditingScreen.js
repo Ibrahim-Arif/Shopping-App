@@ -44,11 +44,11 @@ function ListingEditingScreen(props) {
     const result = listingApi.addListing(
       { ...listing, location },
       setUploadProgress,
-      user
+      user,
+      resetForm
     );
 
     if (!result.ok) return alert(`Couldn't add listing: ` + result.problem);
-    resetForm();
   };
 
   return (

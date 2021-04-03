@@ -6,16 +6,6 @@ import colors from "../config/colors";
 import ListItem from "../components/ListItem";
 import Seperator from "../components/Seperator";
 
-const getTotalListings = (dealerId) => {
-  let totalListings;
-  firebase
-    .database()
-    .ref("/users/" + dealerId + "/totalListings")
-    .on("value", (snapshot) => (totalListings = snapshot.val()));
-
-  return totalListings;
-};
-
 function ListingDetailScreen({ route, navigation }) {
   const [totalListings, setTotalListings] = useState("");
   const { itemDetail } = route.params;
@@ -27,13 +17,20 @@ function ListingDetailScreen({ route, navigation }) {
     dealer,
   } = itemDetail;
 
-  useEffect(() => {
-    setTotalListings(getTotalListings(dealerId));
-  }, []);
-
   const description = itemDetail.description
     ? itemDetail.description
     : itemDetail.title;
+
+  const getTotalListings = () => {
+    firebase
+      .database()
+      .ref("/users/" + dealerId + "/totalListings")
+      .on("value", (snapshot) => setTotalListings(snapshot.val()));
+  };
+
+  useEffect(() => {
+    getTotalListings();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -57,7 +54,7 @@ function ListingDetailScreen({ route, navigation }) {
           totalListings > 1 ? "products" : "product"
         }`}
         image={dealer.image}
-        onPress={() => null}
+        // onPress={() => null}
       />
 
       <Seperator />

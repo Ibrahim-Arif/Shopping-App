@@ -16,16 +16,18 @@ function ListingScreen({ navigation }) {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const loadListing = () => {
+  const _loadListing = () => {
     let data = [];
     setLoading(true);
     setError(false);
 
     try {
+      console.log("inside");
       firebase
         .database()
         .ref("/listings")
         .on("value", (snapshot) => {
+          console.log("inside");
           data = _.map(snapshot.val(), (val, key) => {
             return { ...val, key };
           });
@@ -34,19 +36,18 @@ function ListingScreen({ navigation }) {
           setLoading(false);
         });
     } catch (error) {
-      console.log("Error while reading: " + error);
       setError(true);
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    loadListing();
+    _loadListing();
   }, []);
 
   const onRefresh = () => {
     setRefreshing(true);
-    loadListing();
+    _loadListing();
     setRefreshing(false);
   };
 
@@ -64,7 +65,7 @@ function ListingScreen({ navigation }) {
             <MyButton
               color={colors.primary}
               title="Retry"
-              onPress={() => loadListing()}
+              onPress={() => _loadListing()}
               style={{ width: "90%" }}
             />
           </View>
