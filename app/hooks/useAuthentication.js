@@ -82,5 +82,29 @@ export default useAuthentication = () => {
     setUser(null);
   };
 
-  return { logIn, logOut, register };
+  const signInWithGoogle = () => {
+    let provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithRedirect(provider);
+
+    // firebase
+    //   .auth()
+    //   .getRedirectResult()
+    //   .then((result) => {
+    //     if (result.credential) {
+    //       var credential = result.credential;
+    //       var token = credential.accessToken;
+    //       console.log(credential, token);
+    //     }
+    //     var user = result.user;
+    //     console.log(user);
+    //   })
+    //   .catch((error) => {
+    //     var errorCode = error.code;
+    //     var errorMessage = error.message;
+    //     var email = error.email;
+    //     var credential = error.credential;
+    //   });
+  };
+
+  return { logIn, logOut, register, signInWithGoogle };
 };

@@ -7,6 +7,7 @@ import colors from "../config/colors";
 import FormImagePicker from "../components/FormImagePicker";
 import FormPicker from "../components/FormPicker";
 import FormTextInput from "../components/FormTextInput";
+import SuccessfulAnimation from "../components/SuccessfulAnimation";
 import listingApi from "../api/Listing";
 import MyButton from "../components/MyButton";
 import Screen from "../components/Screen";
@@ -36,11 +37,14 @@ const categories = [
 
 function ListingEditingScreen(props) {
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [successAnimeVisible, setSuccessAnimeVisible] = useState(true);
   const { user } = useUser();
   const location = useLocation();
 
   const handleSubmit = (listing, { resetForm }) => {
     setUploadProgress(0);
+    setSuccessAnimeVisible(true);
+
     const result = listingApi.addListing(
       { ...listing, location },
       setUploadProgress,
@@ -54,10 +58,12 @@ function ListingEditingScreen(props) {
 
   return (
     <Screen style={styles.container}>
-      <UploadScreen
-        progress={uploadProgress}
-        visible={uploadProgress > 0 && uploadProgress < 1}
-      />
+      {uploadProgress > 0 && uploadProgress < 1 && (
+        <UploadScreen progress={uploadProgress} />
+      )}
+      {successAnimeVisible && uploadProgress === 1 && (
+        <SuccessfulAnimation onFinish={setSuccessAnimeVisible} />
+      )}
       <TopTitle title="Item Detail" color={colors.primary} />
 
       <ScrollView>

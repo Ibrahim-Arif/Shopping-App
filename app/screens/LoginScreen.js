@@ -19,7 +19,7 @@ const valiadationRules = yup.object().shape({
 function LoginScreen({ navigation }) {
   const [loading, setLoading] = useState(false);
   const [loginFailed, setLoginFailed] = useState(false);
-  const { logIn } = useAuthentication();
+  const { logIn, signInWithGoogle } = useAuthentication();
 
   const handleSubmit = ({ email, password }) => {
     setLoading(true);
@@ -85,7 +85,7 @@ function LoginScreen({ navigation }) {
           <View style={styles.signupIcons}>
             <Icon
               name="google"
-              onPress={() => null}
+              // onPress={() => signInWithGoogle()}
               backgroundColor={colors.primary}
             />
             <Icon

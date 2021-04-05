@@ -41,7 +41,8 @@
     "react-native-screens": "~2.15.2",
     "react-native-swipe-gestures": "^1.0.5",
     "react-native-web": "~0.13.12",
-    "yup": "^0.32.8"
+    "yup": "^0.32.8",
+"lottie-react-native": "~2.6.1"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"
